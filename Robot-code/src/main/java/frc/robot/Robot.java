@@ -38,7 +38,11 @@ public class Robot extends TimedRobot {
     m_joystick = new JoystickInterface();
     m_chassis = new Chassis(m_joystick);
     m_comms = new RaspberryPiCommunication();
+    int ilkcanpro = 0;
+    while(ilkcanpro<100){
 
+      ilkcanpro++;
+    }
   }
 
   /**
