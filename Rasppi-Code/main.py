@@ -2,31 +2,30 @@ import networktables as nt
 from networktables import NetworkTables
 import threading
 from networktables import NetworkTables
-#init stuff
-#cond = threading.Condition()
-#notified = [False]
-
-#def connectionListener(connected, info):
-#    global cond
-#    print(info, '; Connected=%s' % connected)
-#    with cond:
-#        notified[0] = True
-#        cond.notify()
-
-#NetworkTables.initialize(server='10.80.58.2')
-#NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
-
-#with cond:
-#    print("Waiting")
-#    if not notified[0]:
-#        cond.wait()
-
-#def wrap_entry(table: nt.NetworkTable, name: str) -> nt.NetworkTableEntry:
-#    return table.getEntry(name)
-#instance = nt.NetworkTablesInstance.getDefault()
-#table = nt.NetworkTablesInstance.getTable("datatable")
-#command_pipe = wrap_entry(table, "image-processing-commands")
-
+cond = None
+command_pipe = None
+def connectionListener(connected, info):
+    global cond
+    print(info, '; Connected=%s' % connected)
+    with cond:
+        notified[0] = True
+        cond.notify()
+def wrap_entry(table: nt.NetworkTable, name: str) -> nt.NetworkTableEntry:
+    return table.getEntry(name)
+def init_nettables_stuff():
+    #init stuff
+    global command_pipe
+    cond = threading.Condition()
+    notified = [False]
+    NetworkTables.initialize(server='10.80.58.2')
+    NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+    with cond:
+        print("Waiting")
+    if not notified[0]:
+        cond.wait()
+    instance = nt.NetworkTablesInstance.getDefault()
+    table = nt.NetworkTablesInstance.getTable(instance, "datatable")
+    command_pipe = wrap_entry(table, "image-processing-commands")
 import image_lib
 while (1):
     out = image_lib.detectcircle(13,0,0,39,255,255,3,160)
@@ -39,6 +38,9 @@ while (1):
         continue
     if len(out[0]) != 1:
         continue
+    #Only focus on first ball
+    #TODO: focus on nearest ball
+    ball = max(out[0], key=(lambda i: i[2]))
     ball = out[0][0]
     ball_x = ball[0]
     ball_y = ball[1]
