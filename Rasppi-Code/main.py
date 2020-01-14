@@ -2,8 +2,12 @@ import networktables as nt
 from networktables import NetworkTables
 import threading
 from networktables import NetworkTables
+
+import calibration_data as cal
+
 cond = None
 command_pipe = None
+
 def connectionListener(connected, info):
     global cond
     print(info, '; Connected=%s' % connected)
@@ -28,7 +32,7 @@ def init_nettables_stuff():
     command_pipe = wrap_entry(table, "image-processing-commands")
 import image_lib
 while (1):
-    out = image_lib.detectcircle(13,0,0,39,255,255,3,160)
+    out = image_lib.detectcircle(cal.HUE_MIN,cal.SAT_MIN,cal.VAL_MIN,cal.HUE_MAX,cal.SAT_MAX,cal.VAL_MAX,cal.DP,cal.MINDIST)
     if out[0].__class__ == None.__class__:
         continue
     out[0] = out[0][0]
