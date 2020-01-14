@@ -2,7 +2,7 @@ import networktables as nt
 from networktables import NetworkTables
 import threading
 from networktables import NetworkTables
-
+#init stuff
 cond = threading.Condition()
 notified = [False]
 
@@ -26,3 +26,4 @@ def wrap_entry(table: nt.NetworkTable, name: str) -> nt.NetworkTableEntry:
 instance = nt.NetworkTablesInstance.getDefault()
 table = nt.NetworkTablesInstance.getTable("datatable")
 command_pipe = wrap_entry(table, "image-processing-commands")
+
