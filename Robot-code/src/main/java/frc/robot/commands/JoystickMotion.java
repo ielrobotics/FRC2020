@@ -65,24 +65,50 @@ double turboamount;
       m_sub.drive.setMaxOutput(turboamount);
     }
       
-          if(joystick.getRawButtonPressed(1)){
-            m_sub.drive.setMaxOutput(-turboamount);
-           
 
-              m_sub.drive.arcadeDrive(1, 0.5);
 
-            
-          }
-          if(joystick.getRawButtonReleased(1)){
-          m_sub.drive.setMaxOutput(turboamount);
-            
-          m_sub.drive.arcadeDrive(0, 0);
-          }
+    if(joystick.getPOV() == 0){
+      m_sub.drive.arcadeDrive(1, 0.5);
+      
+    }
+
+    if(joystick.getPOV() == 315){
+      m_sub.drive.arcadeDrive(1, -1);
+      
+    }
+    if(joystick.getPOV() == 270){
+      m_sub.drive.arcadeDrive(0, -1);
+      
+    }
+    if(joystick.getPOV() == 135){
+      m_sub.drive.arcadeDrive(-1, -1);
+      
+    }
+    if(joystick.getPOV() == 180){
+      m_sub.drive.arcadeDrive(-1, 0.5);
+      
+    }
+    if(joystick.getPOV() == 45){
+      m_sub.drive.arcadeDrive(1, 1);
+      
+    }
+    if(joystick.getPOV() == 90){
+      m_sub.drive.arcadeDrive(0, 1);
+      
+    }
+    if(joystick.getPOV() == 225){
+      m_sub.drive.arcadeDrive(-1, 1);
+      
+    }
+  
+
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
       m_ball.ballThrow();
     }
   }
+
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -94,4 +120,7 @@ double turboamount;
   public boolean isFinished() {
     return false;
   }
+
+
+
 }
