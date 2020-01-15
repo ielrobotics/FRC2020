@@ -4,7 +4,7 @@
 # Prerequisites
 *.d
 
-# Compiled Object files
+# Compiled Object files (Ilkcan was here)
 *.slo
 *.lo
 *.o

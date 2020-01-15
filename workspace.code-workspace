@@ -4,10 +4,11 @@
 			"path": "."
 		},
 		{
+
 			"path": "Robot-code"
 		}
 	],
 	"settings": {
-		"java.configuration.updateBuildConfiguration": "automatic"
+		 "java.configuration.updateBuildConfiguration": "automatic"
 	}
 }
