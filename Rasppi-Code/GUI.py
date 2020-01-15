@@ -21,7 +21,7 @@ def detectocta(frame,l_h,l_s,l_v,u_h,u_s,u_v):
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     lower=np.array([l_h,l_s,l_v])
     upper=np.array([u_h,u_s,u_v])
-    mask=cv2.inRange(frame,lower,upper)
+    mask=cv2.inRange(hsv,lower,upper)
     band=cv2.bitwise_and(frame,frame,mask=mask)
     cv2.imshow("mask", band)
     kernel = np.ones((5,5), np.uint8)
