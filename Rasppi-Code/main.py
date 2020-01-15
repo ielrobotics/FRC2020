@@ -1,13 +1,15 @@
 import networktables as nt
 from networktables import NetworkTables
 import threading
-from networktables import NetworkTables
 
 import calibration_data as cal
 cond = threading.Condition()
 ball_instruction_pipe = None
 octa_instruction_pipe = None
 notified = [None]
+
+LAST_BALL = [-1,-1,-1,-1]
+ball = [-1, -1, -1 ,-1]
 def connectionListener(connected, info):
     global cond
     global notified
@@ -35,8 +37,7 @@ def init_nettables_stuff():
     octa_instruction_pipe = wrap_entry(table, "image-processing-octa-pipeline")
 import image_lib
 while (1):
-    #get ball
-
+    ball_found = False
     for _ in range(1):
         out = image_lib.detectcircle(cal.BALL_CONSTANTS["HUE_MIN"],cal.BALL_CONSTANTS["SAT_MIN"],cal.BALL_CONSTANTS["VAL_MIN"],cal.BALL_CONSTANTS["HUE_MAX"],cal.BALL_CONSTANTS["SAT_MAX"],cal.BALL_CONSTANTS["VAL_MAX"],cal.BALL_CONSTANTS["DP"],cal.BALL_CONSTANTS["MIN_DIST"])
         if out[0].__class__ == None.__class__:
@@ -44,7 +45,6 @@ while (1):
         out[0] = out[0][0]
         if out[0].__class__ == None.__class__:
             break
-        #test commit ilkcan
         if len(out[0]) != 1:
             break
         ball = max(out[0], key=(lambda i: i[2]))
@@ -54,6 +54,21 @@ while (1):
         x = ball_x / out[1][0]
         y = ball_y / out[1][1]
         print("BALL: ", [x, y])
+        ball_found = True
+    if not ball_found:
+        if len(LAST_BALL) == 4:
+            #No ball at all, keep searching
+            #ball_instruction_pipe.setDoubleArray([0,-1])
+            pass
+        else:
+            if LAST_BALL[0] < 0.2:
+                pass
+            #ball_instruction_pipe.setDoubleArray([0,-1])
+            
+    else:
+        pass
+        #ball_instruction_pipe.setDoubleArray([1,x * 2 - 1])
+    LAST_BALL = ball[:]
     for _ in range(1):
         out = image_lib.detectocta(0,0,0,255,255,255)
         if out == None:
