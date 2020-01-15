@@ -1,14 +1,12 @@
 import networktables as nt
 from networktables import NetworkTables
 import threading
-
+from time import clock
 import calibration_data as cal
 cond = threading.Condition()
 ball_instruction_pipe = None
 octa_instruction_pipe = None
 notified = [None]
-
-LAST_BALL = [-1,-1,-1,-1]
 ball = [-1, -1, -1 ,-1]
 def connectionListener(connected, info):
     global cond
@@ -35,7 +33,10 @@ def init_nettables_stuff():
     table = nt.NetworkTablesInstance.getTable(instance, "datatable")
     ball_instruction_pipe = wrap_entry(table, "image-processing-ball-pipeline")
     octa_instruction_pipe = wrap_entry(table, "image-processing-octa-pipeline")
+init_nettables_stuff()
 import image_lib
+last_ball_time = clock()
+last_oct_time = clock()
 while (1):
     ball_found = False
     for _ in range(1):
@@ -56,19 +57,15 @@ while (1):
         print("BALL: ", [x, y])
         ball_found = True
     if not ball_found:
-        if len(LAST_BALL) == 4:
-            #No ball at all, keep searching
-            #ball_instruction_pipe.setDoubleArray([0,-1])
-            pass
-        else:
-            if LAST_BALL[0] < 0.2:
-                pass
-            #ball_instruction_pipe.setDoubleArray([0,-1])
-            
+        if clock() - last_ball_time > 2:
+            ball = [-1, -1, -1]
     else:
-        pass
-        #ball_instruction_pipe.setDoubleArray([1,x * 2 - 1])
-    LAST_BALL = ball[:]
+        last_ball_time = clock()
+    if ball[2] == -1:
+        ball_instruction_pipe.setDoubleArray([0, 1])
+    else:
+        ball_instruction_pipe.setDoubleArray([1,x * 2 - 1])
+    #TODO: Implement Octa logic
     for _ in range(1):
         out = image_lib.detectocta(0,0,0,255,255,255)
         if out == None:
