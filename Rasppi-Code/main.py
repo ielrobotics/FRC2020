@@ -43,8 +43,6 @@ while (1):
         out[0] = out[0][0]
         if out[0].__class__ == None.__class__:
             break
-        if out[0].__class__ == None.__class__:
-            break
         if len(out[0]) != 1:
             break
         ball = max(out[0], key=(lambda i: i[2]))

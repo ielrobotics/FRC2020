@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BallStatus;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.JoystickInterface;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,10 +18,12 @@ public class JoystickMotion extends CommandBase {
    * Creates a new JoystickMotion.
    */
   private final Chassis m_sub;
-  private Joystick joystick;
-  public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick) {
+  private final BallStatus m_ball;
+  private final Joystick joystick;
+  public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallStatus m_b) {
     m_sub = m_chassis;
-    addRequirements(m_sub, m_joystick);
+    m_ball = m_b;
+    addRequirements(m_sub, m_joystick, m_b);
     joystick = m_joystick.joystick;
   }
 
@@ -36,13 +39,17 @@ public class JoystickMotion extends CommandBase {
     SmartDashboard.putString("Joystick", joystick.getName());
     m_sub.drive.arcadeDrive(-joystick.getY(), joystick.getX());
     //joystick turbo key
-    //TODO: add dynamic button checking
     
+    //Turbo key
     if (joystick.getRawButtonPressed(5)) {
       m_sub.drive.setMaxOutput(1);
     }
     if (joystick.getRawButtonReleased(5)) {
       m_sub.drive.setMaxOutput(0.7);
+    }
+    //Ball throw key (throw constantly)
+    if (joystick.getRawButton(2)) {
+      m_ball.ballThrow();
     }
   }
 

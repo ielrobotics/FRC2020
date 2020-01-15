@@ -33,7 +33,8 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
     blur = cv2.GaussianBlur(gray,(5,5),0)
     _, thresh_img = cv2.threshold(blur,91,255,cv2.THRESH_BINARY)
     h, w = thresh_img.shape
-    _, contours, _ = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours = conres[1]
     for cont in contours:
         area = cv2.contourArea(cont)
         if area > 400:
