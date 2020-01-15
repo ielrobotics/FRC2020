@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallStatus;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.JoystickInterface;
+
+import java.util.concurrent.TimeUnit;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickMotion extends CommandBase {
@@ -62,18 +65,19 @@ double turboamount;
       m_sub.drive.setMaxOutput(turboamount);
     }
       
-          if(joystick.getRawButton(1)){
+          if(joystick.getRawButtonPressed(1)){
             m_sub.drive.setMaxOutput(-turboamount);
-            int asd = 0;
-            while(asd < 10){
+           
 
+              m_sub.drive.arcadeDrive(1, 0.5);
 
-              m_sub.drive.arcadeDrive(1, 0);
-            }
-            m_sub.drive.setMaxOutput(turboamount);
+            
           }
-
-
+          if(joystick.getRawButtonReleased(1)){
+          m_sub.drive.setMaxOutput(turboamount);
+            
+          m_sub.drive.arcadeDrive(0, 0);
+          }
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
       m_ball.ballThrow();
