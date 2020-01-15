@@ -33,7 +33,12 @@ def init_nettables_stuff():
     table = nt.NetworkTablesInstance.getTable(instance, "datatable")
     ball_instruction_pipe = wrap_entry(table, "image-processing-ball-pipeline")
     octa_instruction_pipe = wrap_entry(table, "image-processing-octa-pipeline")
-init_nettables_stuff()
+def send_ball_data(d):
+    if ball_instruction_pipe.__class__ != None.__class__:
+        ball_instruction_pipe.setDoubleArray(d)
+def send_octa_data(d):
+    if octa_instruction_pipe.__class__ != None.__class__:
+        octa_instruction_pipe.setDoubleArray(d)
 import image_lib
 last_ball_time = clock()
 last_oct_time = clock()
@@ -62,9 +67,9 @@ while (1):
     else:
         last_ball_time = clock()
     if ball[2] == -1:
-        ball_instruction_pipe.setDoubleArray([0, 1])
+        send_ball_data([0, 1])
     else:
-        ball_instruction_pipe.setDoubleArray([1,x * 2 - 1])
+        send_ball_data([1,x * 2 - 1])
     #TODO: Implement Octa logic
     for _ in range(1):
         out = image_lib.detectocta(0,0,0,255,255,255)
