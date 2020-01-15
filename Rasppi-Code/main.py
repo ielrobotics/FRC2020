@@ -56,6 +56,7 @@ while (1):
         print("BALL: ", [x, y])
     for _ in range(1):
         out = image_lib.detectocta(0,0,0,255,255,255)
+        if out == None:
+            break
         print("OCT ", out)
-        pass
 
