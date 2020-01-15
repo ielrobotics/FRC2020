@@ -1,10 +1,13 @@
-HUE_MIN = 13
-SAT_MIN = 0
-VAL_MIN = 0
-
-HUE_MAX = 39
-SAT_MAX = 255
-VAL_MAX = 255
-
-DP = 3
-MINDIST = 160
+#For calibration change this datas
+#For calibrate use trackbars
+BALL_CONSTANTS = 
+{
+"HUE_MIN":13, #For filter minumum value of Hue
+"SAT_MIN":0, #For filter minumum value of Sat
+"VAL_MIN":0, #For filter minumum value of Value
+"HUE_MAX":39, #For filter maximum value of Hue
+"SAT_MAX":255, #For filter maximum value of Sat
+"VAL_MAX":255, #For filter maximum value of Value
+"DP":3, #For filter value of DP
+"MINDIST":160 #For filter value of Mindist
+}

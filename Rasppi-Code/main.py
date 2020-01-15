@@ -40,7 +40,7 @@ last_oct_time = clock()
 while (1):
     ball_found = False
     for _ in range(1):
-        out = image_lib.detectcircle(cal.HUE_MIN,cal.SAT_MIN,cal.VAL_MIN,cal.HUE_MAX,cal.SAT_MAX,cal.VAL_MAX,cal.DP,cal.MINDIST)
+        out = image_lib.detectcircle(cal.BALL_CONSTANTS["HUE_MIN"],cal.BALL_CONSTANTS["SAT_MIN"],cal.BALL_CONSTANTS["VAL_MIN"],cal.BALL_CONSTANTS["HUE_MAX"],cal.BALL_CONSTANTS["SAT_MAX"],cal.BALL_CONSTANTS["VAL_MAX"],cal.BALL_CONSTANTS["DP"],cal.BALL_CONSTANTS["MIN_DIST"])
         if out[0].__class__ == None.__class__:
             break
         out[0] = out[0][0]
