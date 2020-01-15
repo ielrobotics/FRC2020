@@ -33,8 +33,7 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = conres[1]
     for cont  in contours:
-        print(cont)
-        area = cv2.contourArea(cont);
+        area = cv2.contourArea(cont)
         if area > 400:
             approx = cv2.approxPolyDP(cont, 0.009 * cv2.arcLength(cont, True), True)
             if (len(approx) == 8):
@@ -55,8 +54,7 @@ def detecthexa(l_h,l_s,l_v,u_h,u_s,u_v):
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = conres[1]
     for cont  in contours:
-        print(cont)
-        area = cv2.contourArea(cont);
+        area = cv2.contourArea(cont)
         if area > 400:
             approx = cv2.approxPolyDP(cont, 0.009 * cv2.arcLength(cont, True), True)
             if (len(approx) == 6):
