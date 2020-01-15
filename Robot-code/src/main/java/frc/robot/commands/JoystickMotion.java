@@ -37,23 +37,32 @@ double turboamount;
   @Override
   public void execute() {
     SmartDashboard.putString("Joystick", joystick.getName());
-    m_sub.drive.arcadeDrive(-joystick.getY(), joystick.getX());
     //joystick turbo key
     
     //Turbo key
-    if (joystick.getRawButtonPressed(5)) {
+    if (joystick.getRawButton(5)) {
       turboamount = joystick.getRawAxis(3);
-      m_sub.drive.setMaxOutput(turboamount);
+    }else{
+      turboamount = 0.7;
     }
-    if (joystick.getRawButtonReleased(5)) {
-turboamount = 0.7;
-      m_sub.drive.setMaxOutput(0.7);
-    }
+    //disable turbo if unwanted
+  //  if (joystick.getRawButtonReleased(5)) {
+//turboamount = 0.7;
+    //}
 
-    if(joystick.getRawButtonPressed(6)){
 
+    //reverse
+    if(joystick.getRawButton(6)){
+
+      m_sub.drive.arcadeDrive(-joystick.getY(), -joystick.getX());
       m_sub.drive.setMaxOutput(-turboamount);
-    }
+    }else{
+      
+    m_sub.drive.arcadeDrive(-joystick.getY(), joystick.getX());
+      m_sub.drive.setMaxOutput(turboamount);
+
+          }
+      
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
       m_ball.ballThrow();
