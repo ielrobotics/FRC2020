@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BallStatus;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.RaspberryPiCommunication;
 
@@ -17,10 +18,12 @@ public class ImageRecognitionMotion extends CommandBase {
    */
   private final Chassis m_chassis;
   private final RaspberryPiCommunication m_comms;
-  public ImageRecognitionMotion(Chassis chassis, RaspberryPiCommunication comms) {
+  private final BallStatus m_ball;
+  public ImageRecognitionMotion(Chassis chassis, RaspberryPiCommunication comms, BallStatus m_b) {
     m_chassis = chassis;
     m_comms = comms;
-    addRequirements(m_chassis, m_comms);
+    m_ball = m_b;
+    addRequirements(m_chassis, m_comms, m_ball);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
