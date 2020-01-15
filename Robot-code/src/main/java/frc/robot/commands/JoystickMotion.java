@@ -64,7 +64,12 @@ double turboamount;
       
           if(joystick.getRawButton(1)){
             m_sub.drive.setMaxOutput(-turboamount);
-            m_sub.drive.arcadeDrive(1, 0);
+            int asd = 0;
+            while(asd < 10){
+
+
+              m_sub.drive.arcadeDrive(1, 0);
+            }
             m_sub.drive.setMaxOutput(turboamount);
           }
 
