@@ -92,6 +92,7 @@ double turboamount;
       m_sub.drive.arcadeDrive(1, 1);
       
     }
+    //right
     if(joystick.getPOV() == 90){
       m_sub.drive.arcadeDrive(0, 1);
       
