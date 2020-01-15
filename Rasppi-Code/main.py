@@ -36,6 +36,7 @@ def init_nettables_stuff():
 import image_lib
 while (1):
     #get ball
+    
     for _ in range(1):
         out = image_lib.detectcircle(cal.HUE_MIN,cal.SAT_MIN,cal.VAL_MIN,cal.HUE_MAX,cal.SAT_MAX,cal.VAL_MAX,cal.DP,cal.MINDIST)
         if out[0].__class__ == None.__class__:
