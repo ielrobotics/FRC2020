@@ -4,12 +4,13 @@ import threading
 from networktables import NetworkTables
 
 import calibration_data as cal
-
-cond = None
-command_pipe = None
-
+cond = threading.Condition()
+ball_instruction_pipe = None
+hex_instruction_pipe = None
+notified = [None]
 def connectionListener(connected, info):
     global cond
+    global notified
     print(info, '; Connected=%s' % connected)
     with cond:
         notified[0] = True
@@ -18,8 +19,9 @@ def wrap_entry(table: nt.NetworkTable, name: str) -> nt.NetworkTableEntry:
     return table.getEntry(name)
 def init_nettables_stuff():
     #init stuff
-    global command_pipe
-    cond = threading.Condition()
+    global notified
+    global ball_instruction_pipe
+    global hex_instruction_pipe
     notified = [False]
     NetworkTables.initialize(server='10.80.58.2')
     NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
@@ -29,25 +31,30 @@ def init_nettables_stuff():
         cond.wait()
     instance = nt.NetworkTablesInstance.getDefault()
     table = nt.NetworkTablesInstance.getTable(instance, "datatable")
-    command_pipe = wrap_entry(table, "image-processing-commands")
+    ball_instruction_pipe = wrap_entry(table, "image-processing-ball-pipeline")
+    hex_instruction_pipe = wrap_entry(table, "image-processing-hex-pipeline")
 import image_lib
 while (1):
-    out = image_lib.detectcircle(cal.HUE_MIN,cal.SAT_MIN,cal.VAL_MIN,cal.HUE_MAX,cal.SAT_MAX,cal.VAL_MAX,cal.DP,cal.MINDIST)
-    if out[0].__class__ == None.__class__:
-        continue
-    out[0] = out[0][0]
-    if out[0].__class__ == None.__class__:
-        continue
-    if out[0].__class__ == None.__class__:
-        continue
-    if len(out[0]) != 1:
-        continue
-    #Only focus on first ball
-    #TODO: focus on nearest ball
-    ball = max(out[0], key=(lambda i: i[2]))
-    ball = out[0][0]
-    ball_x = ball[0]
-    ball_y = ball[1]
-    x = ball_x / out[1][0]
-    y = ball_y / out[1][1]
-    print([x, y])
+    #get ball
+    for _ in range(1):
+        out = image_lib.detectcircle(cal.HUE_MIN,cal.SAT_MIN,cal.VAL_MIN,cal.HUE_MAX,cal.SAT_MAX,cal.VAL_MAX,cal.DP,cal.MINDIST)
+        if out[0].__class__ == None.__class__:
+            break
+        out[0] = out[0][0]
+        if out[0].__class__ == None.__class__:
+            break
+        if out[0].__class__ == None.__class__:
+            break
+        if len(out[0]) != 1:
+            break
+        ball = max(out[0], key=(lambda i: i[2]))
+        ball = out[0][0]
+        ball_x = ball[0]
+        ball_y = ball[1]
+        x = ball_x / out[1][0]
+        y = ball_y / out[1][1]
+        print("BALL: ", [x, y])
+    for _ in range(1):
+        #TODO: detect hex
+        pass
+

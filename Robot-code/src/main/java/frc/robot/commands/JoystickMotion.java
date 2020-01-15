@@ -35,6 +35,15 @@ public class JoystickMotion extends CommandBase {
   public void execute() {
     SmartDashboard.putString("Joystick", joystick.getName());
     m_sub.drive.arcadeDrive(-joystick.getY(), joystick.getX());
+    //joystick turbo key
+    //TODO: add dynamic button checking
+    
+    if (joystick.getRawButtonPressed(5)) {
+      m_sub.drive.setMaxOutput(1);
+    }
+    if (joystick.getRawButtonReleased(5)) {
+      m_sub.drive.setMaxOutput(0.7);
+    }
   }
 
   // Called once the command ends or is interrupted.
