@@ -11,15 +11,15 @@ def _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v):
     frame=cv2.bitwise_and(frame,frame,mask=mask)
     kernel = np.ones((5,5), np.uint8) 
     frame=cv2.erode(frame, kernel, iterations=1)
-    return frame
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray,(5,5),0)
+    _, thresh_img = cv2.threshold(blur,91,255,cv2.THRESH_BINARY)
+    return thresh_img
 
 def detectcircle(l_h,l_s,l_v,u_h,u_s,u_v,d_p,m_d):
     global cap
     _, frames = cap.read()
-    frame=_color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray,(5,5),0)
-    _, thresh_img = cv2.threshold(blur,91,255,cv2.THRESH_BINARY)
+    thresh_img=_color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
     h, w = thresh_img.shape
     circles = cv2.HoughCircles(thresh_img, cv2.HOUGH_GRADIENT, d_p, m_d)
     #each circle is (x, y, r)
@@ -28,10 +28,7 @@ def detectcircle(l_h,l_s,l_v,u_h,u_s,u_v,d_p,m_d):
 def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
     global cap
     _, frames = cap.read()
-    frame = _color_framing(frames, l_h, l_s, l_v, u_h, u_s, u_v)
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray,(5,5),0)
-    _, thresh_img = cv2.threshold(blur,91,255,cv2.THRESH_BINARY)
+    thresh_img = _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
     h, w = thresh_img.shape
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = conres[1]
