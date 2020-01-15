@@ -1,7 +1,6 @@
 #For calibration change this datas
 #For calibrate use trackbars
-BALL_CONSTANTS = 
-{
+BALL_CONSTANTS = {
 "HUE_MIN":13, #For filter minumum value of Hue
 "SAT_MIN":0, #For filter minumum value of Sat
 "VAL_MIN":0, #For filter minumum value of Value
