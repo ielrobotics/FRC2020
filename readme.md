@@ -1,1 +1,4 @@
-#IELROBOTICS FRC resmi GitHub'i
+# IELROBOTICS FRC resmi GitHub'i
+## License
+
+[IEL](https://github.com/ielrobotics)
