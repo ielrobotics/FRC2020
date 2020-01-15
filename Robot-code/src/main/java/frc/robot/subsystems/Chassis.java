@@ -18,6 +18,7 @@ public class Chassis extends SubsystemBase {
    */
   public DifferentialDrive drive;
   public Chassis(JoystickInterface m_joystick) {
+    //5 6 sag 7 8 sol
     drive = new DifferentialDrive(new SpeedControllerGroup(new VictorSP(5), new VictorSP(6)), new SpeedControllerGroup(new VictorSP(7),new VictorSP(8)));
     drive.setMaxOutput(0.7);
     

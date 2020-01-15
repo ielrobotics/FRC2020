@@ -6,7 +6,7 @@ from networktables import NetworkTables
 import calibration_data as cal
 cond = threading.Condition()
 ball_instruction_pipe = None
-hex_instruction_pipe = None
+octa_instruction_pipe = None
 notified = [None]
 def connectionListener(connected, info):
     global cond
@@ -21,7 +21,7 @@ def init_nettables_stuff():
     #init stuff
     global notified
     global ball_instruction_pipe
-    global hex_instruction_pipe
+    global octa_instruction_pipe
     notified = [False]
     NetworkTables.initialize(server='10.80.58.2')
     NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
@@ -32,7 +32,7 @@ def init_nettables_stuff():
     instance = nt.NetworkTablesInstance.getDefault()
     table = nt.NetworkTablesInstance.getTable(instance, "datatable")
     ball_instruction_pipe = wrap_entry(table, "image-processing-ball-pipeline")
-    hex_instruction_pipe = wrap_entry(table, "image-processing-hex-pipeline")
+    octa_instruction_pipe = wrap_entry(table, "image-processing-octa-pipeline")
 import image_lib
 while (1):
     #get ball
@@ -55,6 +55,7 @@ while (1):
         y = ball_y / out[1][1]
         print("BALL: ", [x, y])
     for _ in range(1):
-        #TODO: detect hex
+        out = image_lib.detectocta(0,0,0,255,255,255)
+        print("OCT ", out)
         pass
 
