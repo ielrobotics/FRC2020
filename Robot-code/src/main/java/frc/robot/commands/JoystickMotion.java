@@ -39,14 +39,8 @@ public class JoystickMotion extends CommandBase {
     SmartDashboard.putString("Joystick", joystick.getName());
     m_sub.drive.arcadeDrive(-joystick.getY(), joystick.getX());
     //joystick turbo key
-    
-    //Turbo key
-    if (joystick.getRawButtonPressed(5)) {
-      m_sub.drive.setMaxOutput(1);
-    }
-    if (joystick.getRawButtonReleased(5)) {
-      m_sub.drive.setMaxOutput(0.7);
-    }
+
+    m_sub.drive.setMaxOutput((joystick.getRawAxis(5) - 0.5) * 0.6 + 0.7);
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
       m_ball.ballThrow();
