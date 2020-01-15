@@ -10,7 +10,7 @@ BALL_CONSTANTS =  {
 "DP":3, #For filter value of DP
 "MIN_DIST":160 #For filter value of Mindist
 }
-HEX_CONSTANTS = {
+OCTA_CONSTANTS = {
 "HUE_MIN":0, #For filter minumum value of Hue
 "SAT_MIN":0, #For filter minumum value of Sat
 "VAL_MIN":0, #For filter minumum value of Value

@@ -40,8 +40,8 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
                 x = 0
                 y = 0
                 for point in approx:
-                    x += point[0][0] / w
-                    y += point[0][1] / h
+                    x += point[0][0] / (w * 8)
+                    y += point[0][1] / (h * 8)
                 return [x,y]
 def detecthexa(l_h,l_s,l_v,u_h,u_s,u_v):
     global cap

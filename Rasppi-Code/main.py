@@ -72,7 +72,7 @@ while (1):
         send_ball_data([1,x * 2 - 1])
     #TODO: Implement Octa logic
     for _ in range(1):
-        out = image_lib.detectocta(cal.HEX_CONSTANTS["HUE_MIN"],cal.HEX_CONSTANTS["SAT_MIN"],cal.HEX_CONSTANTS["VAL_MIN"],cal.HEX_CONSTANTS["HUE_MAX"],cal.HEX_CONSTANTS["SAT_MAX"],cal.HEX_CONSTANTS["VAL_MAX"])
+        out = image_lib.detectocta(cal.OCTA_CONSTANTS["HUE_MIN"],cal.OCTA_CONSTANTS["SAT_MIN"],cal.OCTA_CONSTANTS["VAL_MIN"],cal.OCTA_CONSTANTS["HUE_MAX"],cal.OCTA_CONSTANTS["SAT_MAX"],cal.OCTA_CONSTANTS["VAL_MAX"])
         if out == None:
             break
         print("OCT ", out)
