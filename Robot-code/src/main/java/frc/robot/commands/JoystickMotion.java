@@ -55,15 +55,17 @@ double turboamount;
     //reverse
     if (joystick.getRawButton(6)) {
       m_sub.drive.arcadeDrive(-joystick.getY(), -joystick.getX());
-      m_sub.drive.setMaxOutput(-turboamount);
+      turboamount = - turboamount;
+      m_sub.drive.setMaxOutput(turboamount);
     } else {
       m_sub.drive.arcadeDrive(-joystick.getY(), joystick.getX());
       m_sub.drive.setMaxOutput(turboamount);
     }
       
-
-          if(joystick.getRawButton(2)){
-            m_sub.drive.stopMotor();
+          if(joystick.getRawButton(1)){
+            m_sub.drive.setMaxOutput(-turboamount);
+            m_sub.drive.arcadeDrive(1, 0);
+            m_sub.drive.setMaxOutput(turboamount);
           }
 
 
