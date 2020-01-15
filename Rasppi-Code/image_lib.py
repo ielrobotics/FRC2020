@@ -39,3 +39,4 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
             approx = cv2.approxPolyDP(cont, 0.009 * cv2.arcLength(cont, True), True)
             if (len(approx) == 8):
                 return approx
+                #test commit 3
