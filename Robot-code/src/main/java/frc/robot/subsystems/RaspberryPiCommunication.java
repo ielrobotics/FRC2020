@@ -15,18 +15,24 @@ public class RaspberryPiCommunication extends SubsystemBase {
    */
   private final NetworkTableInstance instance;
   private final NetworkTable table;
-  private final NetworkTableEntry imageProcessing;
+  private final NetworkTableEntry imageprocessing_ball_commands;
+  private final NetworkTableEntry imageprocessing_hex_commands;
   public RaspberryPiCommunication() {
     instance = NetworkTableInstance.getDefault();
     table = instance.getTable("datatable");
-    imageProcessing = table.getEntry("image-processing-commands");
+    imageprocessing_ball_commands = table.getEntry("image-processing-ball-pipeline");
+    imageprocessing_hex_commands = table.getEntry("image-processing-hex-pipeline");
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public double[] getXY() {
+  public double[] getXYBall() {
     double def[] = {-1,-1,-1};
-    return imageProcessing.getDoubleArray(def);
+    return imageprocessing_ball_commands.getDoubleArray(def);
+  }
+  public double[] getXYHex() {
+    double def[] = {-1,-1,-1};
+    return imageprocessing_hex_commands.getDoubleArray(def);
   }
 }

@@ -7,5 +7,7 @@
 			"path": "Robot-code"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
 }

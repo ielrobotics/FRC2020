@@ -33,7 +33,7 @@ public class ImageRecognitionMotion extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double ret[] = m_comms.getXY();
+    double ret[] = m_comms.getXYBall();
     if (ret.length == 3) {
       m_chassis.drive.arcadeDrive(ret[0], ret[1]);
     } else {
