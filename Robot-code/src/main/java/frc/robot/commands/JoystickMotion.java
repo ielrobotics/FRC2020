@@ -32,7 +32,7 @@ public class JoystickMotion extends CommandBase {
   public void initialize() {
     
   }
-
+double turboamount;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -42,10 +42,17 @@ public class JoystickMotion extends CommandBase {
     
     //Turbo key
     if (joystick.getRawButtonPressed(5)) {
-      m_sub.drive.setMaxOutput(1);
+      turboamount = joystick.getRawAxis(3);
+      m_sub.drive.setMaxOutput(turboamount);
     }
     if (joystick.getRawButtonReleased(5)) {
+turboamount = 0.7;
       m_sub.drive.setMaxOutput(0.7);
+    }
+
+    if(joystick.getRawButtonPressed(6)){
+
+      m_sub.drive.setMaxOutput(-turboamount);
     }
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {

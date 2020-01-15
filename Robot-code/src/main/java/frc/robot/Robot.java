@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Command m_teleopCommand;
   private JoystickInterface m_joystick;
+  private JoystickInterface trigger;
   private Chassis m_chassis;
   private RaspberryPiCommunication m_comms;
   private BallStatus m_ball;
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_joystick = new JoystickInterface();
+    trigger = new JoystickInterface();
     m_chassis = new Chassis(m_joystick);
     m_comms = new RaspberryPiCommunication();
     m_ball = new BallStatus();
