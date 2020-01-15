@@ -61,6 +61,12 @@ double turboamount;
       m_sub.drive.setMaxOutput(turboamount);
     }
       
+
+          if(joystick.getRawButton(2)){
+            m_sub.drive.stopMotor();
+          }
+
+
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
       m_ball.ballThrow();

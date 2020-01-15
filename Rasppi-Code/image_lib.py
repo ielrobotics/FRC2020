@@ -32,11 +32,34 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
     h, w = thresh_img.shape
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = conres[1]
-    for cont in contours:
-        area = cv2.contourArea(cont)
+    for cont  in contours:
+        print(cont)
+        area = cv2.contourArea(cont);
         if area > 400:
             approx = cv2.approxPolyDP(cont, 0.009 * cv2.arcLength(cont, True), True)
             if (len(approx) == 8):
+                x = 0
+                y = 0
+                for point in approx:
+                    x += point[0][0] / w
+                    y += point[0][1] / h
+                return [x,y]
+def detecthexa(l_h,l_s,l_v,u_h,u_s,u_v):
+    global cap
+    _, frames = cap.read()
+    frame = _color_framing(frames, l_h, l_s, l_v, u_h, u_s, u_v)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray,(5,5),0)
+    _, thresh_img = cv2.threshold(blur,91,255,cv2.THRESH_BINARY)
+    h, w = thresh_img.shape
+    conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours = conres[1]
+    for cont  in contours:
+        print(cont)
+        area = cv2.contourArea(cont);
+        if area > 400:
+            approx = cv2.approxPolyDP(cont, 0.009 * cv2.arcLength(cont, True), True)
+            if (len(approx) == 6):
                 x = 0
                 y = 0
                 for point in approx:
