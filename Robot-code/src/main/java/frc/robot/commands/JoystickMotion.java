@@ -12,8 +12,6 @@ import frc.robot.subsystems.BallStatus;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.JoystickInterface;
 
-import java.util.concurrent.TimeUnit;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickMotion extends CommandBase {
@@ -35,6 +33,7 @@ public class JoystickMotion extends CommandBase {
   public void initialize() {
     
   }
+private final double POVMagicValues[][] = {{1, 0.5}, {1,1}, {0,1}, {-1,-1}, {-1,0.5}, {-1,1}, {0,-1}, {1,-1}};
 double turboamount;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -72,44 +71,8 @@ double turboamount;
       m_sub.drive.setMaxOutput(turboamount);
     }
       
-
-
-    if(joystick.getPOV() == 0){
-      m_sub.drive.arcadeDrive(1, 0.5);
-      
-    }
-
-    if(joystick.getPOV() == 315){
-      m_sub.drive.arcadeDrive(1, -1);
-      
-    }
-    if(joystick.getPOV() == 270){
-      m_sub.drive.arcadeDrive(0, -1);
-      
-    }
-    if(joystick.getPOV() == 135){
-      m_sub.drive.arcadeDrive(-1, -1);
-      
-    }
-    if(joystick.getPOV() == 180){
-      m_sub.drive.arcadeDrive(-1, 0.5);
-      
-    }
-    if(joystick.getPOV() == 45){
-      m_sub.drive.arcadeDrive(1, 1);
-      
-    }
-    //right
-    if(joystick.getPOV() == 90){
-      m_sub.drive.arcadeDrive(0, 1);
-      
-    }
-    if(joystick.getPOV() == 225){
-      m_sub.drive.arcadeDrive(-1, 1);
-      
-    }
-  
-
+    double magiclist[] = POVMagicValues[joystick.getPOV() / 45];
+    m_sub.drive.arcadeDrive(magiclist[0], magiclist[1]);
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
       m_ball.ballThrow();
