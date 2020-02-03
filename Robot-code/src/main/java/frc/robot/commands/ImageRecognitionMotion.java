@@ -16,7 +16,6 @@ public class ImageRecognitionMotion extends CommandBase {
   /**
    * Creates a new ImageRecognitionMotion.
    */
-  /*Try to commit*/
   private final Chassis m_chassis;
   private final RaspberryPiCommunication m_comms;
   private final BallStatus m_ball;
