@@ -42,17 +42,14 @@ double turboamount;
     //joystick turbo key
     
     //Turbo key
-    if (!joystick.getRawButton(5)) {
-      turboamount = joystick.getRawAxis(3)*0.5 + 0.5;
-    } else {
-      turboamount = joystick.getRawAxis(3);
-    }
-
     if(joystick.getRawButton(9)){
       turboamount = 0.2;
+    } else {
+      turboamount = joystick.getRawAxis(3);
+      if (!joystick.getRawButton(5)) {
+        turboamount = turboamount * 0.5 + 0.5;
+      }
     }
-
-    
     /*
 
     disable turbo if unwanted
@@ -65,12 +62,10 @@ double turboamount;
     if (joystick.getRawButton(6)) {
       m_sub.drive.arcadeDrive(-joystick.getRawAxis(1), -joystick.getRawAxis(4));
       turboamount = - turboamount;
-      m_sub.drive.setMaxOutput(turboamount);
     } else {
       m_sub.drive.arcadeDrive(-joystick.getRawAxis(1), joystick.getRawAxis(4));
-      m_sub.drive.setMaxOutput(turboamount);
     }
-      
+    m_sub.drive.setMaxOutput(turboamount);
     double magiclist[] = POVMagicValues[joystick.getPOV() / 45];
     m_sub.drive.arcadeDrive(magiclist[0], magiclist[1]);
     //Ball throw key (throw constantly)

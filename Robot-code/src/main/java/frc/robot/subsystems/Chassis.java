@@ -10,15 +10,15 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 public class Chassis extends SubsystemBase {
   /**
    * Creates a new Chassis.
    */
   public DifferentialDrive drive;
   public Chassis() {
-    //5 6 sag 7 8 sol
-    drive = new DifferentialDrive(new SpeedControllerGroup(new VictorSP(5), new VictorSP(6)), new SpeedControllerGroup(new VictorSP(7),new VictorSP(8)));
+    //2 3 sag 0 1 sol
+    drive = new DifferentialDrive(new SpeedControllerGroup(new WPI_VictorSPX(0),new WPI_VictorSPX(1)),new SpeedControllerGroup(new WPI_VictorSPX(2),new WPI_VictorSPX(3)));
     drive.setMaxOutput(0.7);
   }
 
