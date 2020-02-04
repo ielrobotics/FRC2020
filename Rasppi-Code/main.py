@@ -2,7 +2,7 @@
 import networktables as nt
 from networktables import NetworkTables
 import threading
-from time import clock
+import _mod_builtins.clock from time
 import calibration_data as cal
 cond = threading.Condition()
 ball_instruction_pipe = None
