@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import networktables as nt
 from networktables import NetworkTables
 import threading

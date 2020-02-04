@@ -1,7 +1,19 @@
 import numpy as np
-import cv2
 import sys
-cap = cv2.VideoCapture(0)
+import time
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import cv2
+#1280x720
+cam = PiCamera()
+cam.resolution = (1280, 720)
+cam.framerate = 20
+capture = PiRGBArray(cam, size=(1280,720))
+time.sleep(0.1)
+def get_cam_frame():
+    capture.truncate(0)
+    cam.capture(capture, format="bgr")
+    return capture.array
 def _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v):
     frame=frames
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -18,7 +30,7 @@ def _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v):
 
 def detectcircle(l_h,l_s,l_v,u_h,u_s,u_v,d_p,m_d):
     global cap
-    _, frames = cap.read()
+    frames = get_cam_frame()
     thresh_img=_color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
     h, w = thresh_img.shape
     circles = cv2.HoughCircles(thresh_img, cv2.HOUGH_GRADIENT, d_p, m_d)
@@ -27,7 +39,7 @@ def detectcircle(l_h,l_s,l_v,u_h,u_s,u_v,d_p,m_d):
     return [circles, [w, h]]
 def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
     global cap
-    _, frames = cap.read()
+    frames = get_cam_frame()
     thresh_img = _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
     h, w = thresh_img.shape
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -45,7 +57,7 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
                 return [x,y]
 def detecthexa(l_h,l_s,l_v,u_h,u_s,u_v):
     global cap
-    _, frames = cap.read()
+    frames = get_cam_frame()
     frame = _color_framing(frames, l_h, l_s, l_v, u_h, u_s, u_v)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray,(5,5),0)
