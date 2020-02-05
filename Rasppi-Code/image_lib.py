@@ -29,7 +29,6 @@ def _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v):
     return thresh_img
 
 def detectcircle(l_h,l_s,l_v,u_h,u_s,u_v,d_p,m_d):
-    global cap
     frames = get_cam_frame()
     thresh_img=_color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
     h, w = thresh_img.shape
@@ -38,13 +37,16 @@ def detectcircle(l_h,l_s,l_v,u_h,u_s,u_v,d_p,m_d):
     #return format is [[circle, circle, ...], [w, h]]
     return [circles, [w, h]]
 def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
-    global cap
     frames = get_cam_frame()
     thresh_img = _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
     h, w = thresh_img.shape
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if not conres:
+        return None
     contours = conres[1]
-    for cont  in contours:
+    if not contours:
+        return None
+    for cont in contours:
         area = cv2.contourArea(cont)
         if area > 400:
             approx = cv2.approxPolyDP(cont, 0.009 * cv2.arcLength(cont, True), True)
@@ -56,7 +58,6 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
                     y += point[0][1] / (h * 8)
                 return [x,y]
 def detecthexa(l_h,l_s,l_v,u_h,u_s,u_v):
-    global cap
     frames = get_cam_frame()
     frame = _color_framing(frames, l_h, l_s, l_v, u_h, u_s, u_v)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -64,7 +65,11 @@ def detecthexa(l_h,l_s,l_v,u_h,u_s,u_v):
     _, thresh_img = cv2.threshold(blur,91,255,cv2.THRESH_BINARY)
     h, w = thresh_img.shape
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    if not conres:
+        return None
     contours = conres[1]
+    if not contours:
+        return None
     for cont  in contours:
         area = cv2.contourArea(cont)
         if area > 400:

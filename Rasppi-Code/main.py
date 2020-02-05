@@ -2,24 +2,28 @@
 import networktables as nt
 from networktables import NetworkTables
 import threading
-from time import clock
+from time import process_time as clock
 import calibration_data as cal
 from os import system
 import sys
-system("mv logfile logfile.old")
-with open("logfile","w") as sys.stdout:
-    cond = threading.Condition()
+with open("/home/pi/Rasppi-Code/logfile","w") as sys.stdout:
+    sys.stderr = sys.stdout
+    old_print = print
+    def print(*args, **kwargs):
+        sys.stderr.flush()
+        old_print(*args, **kwargs)
+        sys.stdout.flush()
+
+    print("INIT")
+    
     ball_instruction_pipe = None
     octa_instruction_pipe = None
     ball = [-1, -1, -1 ,-1]
     def wrap_entry(table: nt.NetworkTable, name: str) -> nt.NetworkTableEntry:
         return table.getEntry(name)
     def init_nettables_stuff():
-        #init stuff
-        global notified
         global ball_instruction_pipe
         global octa_instruction_pipe
-        notified = [False]
         NetworkTables.startServer()
         instance = nt.NetworkTablesInstance.getDefault()
         table = nt.NetworkTablesInstance.getTable(instance, "datatable")
@@ -35,6 +39,8 @@ with open("logfile","w") as sys.stdout:
     last_ball_time = clock()
     last_oct_time = clock()
     while (1):
+        sys.stderr.flush()
+        print("LOGTEST")
         ball_found = False
         for _ in range(1):
             out = image_lib.detectcircle(cal.BALL_CONSTANTS["HUE_MIN"],cal.BALL_CONSTANTS["SAT_MIN"],cal.BALL_CONSTANTS["VAL_MIN"],cal.BALL_CONSTANTS["HUE_MAX"],cal.BALL_CONSTANTS["SAT_MAX"],cal.BALL_CONSTANTS["VAL_MAX"],cal.BALL_CONSTANTS["DP"],cal.BALL_CONSTANTS["MIN_DIST"])
