@@ -17,8 +17,8 @@ public class Chassis extends SubsystemBase {
    */
   public DifferentialDrive drive;
   public Chassis() {
-    //2 3 sag 0 1 sol
-    drive = new DifferentialDrive(new SpeedControllerGroup(new WPI_VictorSPX(0),new WPI_VictorSPX(1)),new SpeedControllerGroup(new WPI_VictorSPX(2),new WPI_VictorSPX(3)));
+    //3 4 sag 1 2 sol
+    drive = new DifferentialDrive(new SpeedControllerGroup(new WPI_VictorSPX(1),new WPI_VictorSPX(2)),new SpeedControllerGroup(new WPI_VictorSPX(3),new WPI_VictorSPX(4)));
     drive.setMaxOutput(0.7);
   }
 
