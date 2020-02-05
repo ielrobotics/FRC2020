@@ -19,6 +19,7 @@ public class RaspberryPiCommunication extends SubsystemBase {
   private final NetworkTableEntry imageprocessing_hex_commands;
   public RaspberryPiCommunication() {
     instance = NetworkTableInstance.getDefault();
+    instance.setServer("10.80.58.254");
     table = instance.getTable("datatable");
     imageprocessing_ball_commands = table.getEntry("image-processing-ball-pipeline");
     imageprocessing_hex_commands = table.getEntry("image-processing-hex-pipeline");

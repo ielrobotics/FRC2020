@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import networktables as nt
 from networktables import NetworkTables
 import threading
@@ -6,15 +7,7 @@ import calibration_data as cal
 cond = threading.Condition()
 ball_instruction_pipe = None
 octa_instruction_pipe = None
-notified = [None]
 ball = [-1, -1, -1 ,-1]
-def connectionListener(connected, info):
-    global cond
-    global notified
-    print(info, '; Connected=%s' % connected)
-    with cond:
-        notified[0] = True
-        cond.notify()
 def wrap_entry(table: nt.NetworkTable, name: str) -> nt.NetworkTableEntry:
     return table.getEntry(name)
 def init_nettables_stuff():
@@ -23,12 +16,7 @@ def init_nettables_stuff():
     global ball_instruction_pipe
     global octa_instruction_pipe
     notified = [False]
-    NetworkTables.initialize(server='10.80.58.2')
-    NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
-    with cond:
-        print("Waiting")
-    if not notified[0]:
-        cond.wait()
+    NetworkTables.startServer()
     instance = nt.NetworkTablesInstance.getDefault()
     table = nt.NetworkTablesInstance.getTable(instance, "datatable")
     ball_instruction_pipe = wrap_entry(table, "image-processing-ball-pipeline")
