@@ -59,15 +59,14 @@ double turboamount;
     */
 
     //reverse
+    double magiclist[] = POVMagicValues[joystick.getPOV() / 45];
     if (joystick.getRawButton(6)) {
-      m_sub.drive.arcadeDrive(-joystick.getRawAxis(1), -joystick.getRawAxis(4));
+      m_sub.drive.arcadeDrive(magiclist[0], -magiclist[1]);
       turboamount = - turboamount;
     } else {
-      m_sub.drive.arcadeDrive(-joystick.getRawAxis(1), joystick.getRawAxis(4));
+      m_sub.drive.arcadeDrive(magiclist[0], magiclist[1]);
     }
     m_sub.drive.setMaxOutput(turboamount);
-    double magiclist[] = POVMagicValues[joystick.getPOV() / 45];
-    m_sub.drive.arcadeDrive(magiclist[0], magiclist[1]);
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
       m_ball.ballThrow();

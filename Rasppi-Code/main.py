@@ -6,8 +6,9 @@ from time import process_time as clock
 import calibration_data as cal
 from os import system
 import sys
-with open("/home/pi/Rasppi-Code/logfile","w") as sys.stdout:
-    sys.stderr = sys.stdout
+with open("/home/pi/Rasppi-Code/logfile","w") as logfile:
+    sys.stdout = logfile
+    sys.stderr = logfile
     old_print = print
     def print(*args, **kwargs):
         sys.stderr.flush()
@@ -35,17 +36,23 @@ with open("/home/pi/Rasppi-Code/logfile","w") as sys.stdout:
     def send_octa_data(d):
         if octa_instruction_pipe.__class__ != None.__class__:
             octa_instruction_pipe.setDoubleArray(d)
-    import image_lib
+    print("Getting image lib")
+    from image_lib import detectcircle
+    from image_lib import init
+    from image_lib import detectocta
+    print("Got image lib!")
+    init()
+    print("Initialized image lib!")
     last_ball_time = clock()
     last_oct_time = clock()
     while (1):
-        sys.stderr.flush()
-        print("LOGTEST")
+        print("LOOP")
         ball_found = False
         for _ in range(1):
-            out = image_lib.detectcircle(cal.BALL_CONSTANTS["HUE_MIN"],cal.BALL_CONSTANTS["SAT_MIN"],cal.BALL_CONSTANTS["VAL_MIN"],cal.BALL_CONSTANTS["HUE_MAX"],cal.BALL_CONSTANTS["SAT_MAX"],cal.BALL_CONSTANTS["VAL_MAX"],cal.BALL_CONSTANTS["DP"],cal.BALL_CONSTANTS["MIN_DIST"])
+            print("RUNNING DETECTCIRCLE")
+            out = detectcircle(cal.BALL_CONSTANTS["HUE_MIN"],cal.BALL_CONSTANTS["SAT_MIN"],cal.BALL_CONSTANTS["VAL_MIN"],cal.BALL_CONSTANTS["HUE_MAX"],cal.BALL_CONSTANTS["SAT_MAX"],cal.BALL_CONSTANTS["VAL_MAX"],cal.BALL_CONSTANTS["DP"],cal.BALL_CONSTANTS["MIN_DIST"])
             if out[0].__class__ == None.__class__:
-               break
+                break
             out[0] = out[0][0]
             if out[0].__class__ == None.__class__:
                 break
@@ -64,13 +71,15 @@ with open("/home/pi/Rasppi-Code/logfile","w") as sys.stdout:
                 ball = [-1, -1, -1]
         else:
             last_ball_time = clock()
+        print("SENDING BALL DATA")
         if ball[2] == -1:
             send_ball_data([0, 1])
         else:
             send_ball_data([1,x * 2 - 1])
         #TODO: Implement Octa logic
+        print("OCTA-ROUTINE")
         for _ in range(1):
-            out = image_lib.detectocta(cal.OCTA_CONSTANTS["HUE_MIN"],cal.OCTA_CONSTANTS["SAT_MIN"],cal.OCTA_CONSTANTS["VAL_MIN"],cal.OCTA_CONSTANTS["HUE_MAX"],cal.OCTA_CONSTANTS["SAT_MAX"],cal.OCTA_CONSTANTS["VAL_MAX"])
+            out = detectocta(cal.OCTA_CONSTANTS["HUE_MIN"],cal.OCTA_CONSTANTS["SAT_MIN"],cal.OCTA_CONSTANTS["VAL_MIN"],cal.OCTA_CONSTANTS["HUE_MAX"],cal.OCTA_CONSTANTS["SAT_MAX"],cal.OCTA_CONSTANTS["VAL_MAX"])
             if out == None:
                 break
             print("OCT ", out)

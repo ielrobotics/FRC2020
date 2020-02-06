@@ -4,12 +4,19 @@ import time
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import cv2
+import os
 #1280x720
-cam = PiCamera()
-cam.resolution = (1280, 720)
-cam.framerate = 20
-capture = PiRGBArray(cam, size=(1280,720))
-time.sleep(0.1)
+cam = None
+capture = None
+global outf
+def init():
+    global cam
+    global capture
+    cam = PiCamera()
+    cam.resolution = (1280, 720)
+    cam.framerate = 20
+    capture = PiRGBArray(cam, size=(1280,720))
+    time.sleep(0.1)
 def get_cam_frame():
     capture.truncate(0)
     cam.capture(capture, format="bgr")
