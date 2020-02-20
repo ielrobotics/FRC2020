@@ -1,1 +1,0 @@
-ge-recognition && cat /home/pi/Rasppi-Code/logfile"

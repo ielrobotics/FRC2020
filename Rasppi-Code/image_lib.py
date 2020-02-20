@@ -1,8 +1,6 @@
 import numpy as np
 import sys
 import time
-from picamera.array import PiRGBArray
-from picamera import PiCamera
 import cv2
 import os
 #1280x720
@@ -12,15 +10,12 @@ global outf
 def init():
     global cam
     global capture
-    cam = PiCamera()
-    cam.resolution = (1280, 720)
-    cam.framerate = 20
-    capture = PiRGBArray(cam, size=(1280,720))
+    cam = cv2.VideoCapture(1)
+    #cam.resolution = (1280, 720)
+    #cam.framerate = 20
     time.sleep(0.1)
 def get_cam_frame():
-    capture.truncate(0)
-    cam.capture(capture, format="bgr")
-    return capture.array
+    return cam.read()[1]
 def _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v):
     frame=frames
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -43,9 +38,8 @@ def detectcircle(l_h,l_s,l_v,u_h,u_s,u_v,d_p,m_d):
     #each circle is (x, y, r)
     #return format is [[circle, circle, ...], [w, h]]
     return [circles, [w, h]]
-def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
-    frames = get_cam_frame()
-    thresh_img = _color_framing(frames,l_h,l_s,l_v,u_h,u_s,u_v)
+def detectocta_from_frame(f,l_h,l_s,l_v,u_h,u_s,u_v):
+    thresh_img = _color_framing(f,l_h,l_s,l_v,u_h,u_s,u_v)
     h, w = thresh_img.shape
     conres = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     if not conres:
@@ -64,6 +58,8 @@ def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
                     x += point[0][0] / (w * 8)
                     y += point[0][1] / (h * 8)
                 return [x,y]
+def detectocta(l_h,l_s,l_v,u_h,u_s,u_v):
+    return detectocta_from_frame(get_cam_frame(),l_h,l_s,l_v,u_h,u_s,u_v)
 def detecthexa(l_h,l_s,l_v,u_h,u_s,u_v):
     frames = get_cam_frame()
     frame = _color_framing(frames, l_h, l_s, l_v, u_h, u_s, u_v)
