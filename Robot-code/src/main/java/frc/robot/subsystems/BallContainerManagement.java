@@ -16,7 +16,7 @@ public class BallContainerManagement extends SubsystemBase {
    */
   private final VictorSP container_lift_motor;
   public BallContainerManagement() {
-    container_lift_motor = new VictorSP(1);
+    container_lift_motor = new VictorSP(00);
   }
 
   @Override
