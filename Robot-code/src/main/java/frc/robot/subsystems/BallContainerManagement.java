@@ -7,26 +7,27 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class BallStatus extends SubsystemBase {
+public class BallContainerManagement extends SubsystemBase {
   /**
-   * Creates a new BallStatus.
+   * Creates a new BallContainerManagement.
    */
-  public BallStatus() {
-
+  private final VictorSP container_lift_motor;
+  public BallContainerManagement() {
+    container_lift_motor = new VictorSP(1);
   }
 
   @Override
   public void periodic() {
+    container_lift_motor.feed();
     // This method will be called once per scheduler run
   }
-  //TODO: Implement ball throwing
-  public void ballThrow() {
-    if (slotFull()) return;
+  public void lift_arm() {
+    //TODO: lift arm
   }
-  //TODO: Check if ball slot is full
-  public Boolean slotFull() {
-    return false;
+  public void release_arm() {
+    //TODO: release arm
   }
 }

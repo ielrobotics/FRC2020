@@ -8,28 +8,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallContainerManagement;
-import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.RaspberryPiCommunication;
 
-public class ImageRecognitionMotion extends CommandBase {
-  /**
-   * Creates a new ImageRecognitionMotion.
-   */
-  private final Chassis m_chassis;
-  private final RaspberryPiCommunication m_comms;
-  private final BallContainerManagement m_cont;
-  private final BallManagement m_ball;
-  public ImageRecognitionMotion(Chassis chassis, RaspberryPiCommunication comms, BallContainerManagement cont, BallManagement ball) {
-    m_chassis = chassis;
-    m_comms = comms;
-    m_cont = cont;
-    m_ball = ball;
-    addRequirements(m_chassis, m_comms, m_cont, m_ball);
+public class AlignWithHex extends CommandBase {
 
+  /**
+   * Creates a new AlignWithHex.
+   */
+  private final RaspberryPiCommunication m_rasp;
+  private final Chassis m_chas;
+  public AlignWithHex(Chassis c, RaspberryPiCommunication rasp) {
+    m_chas = c;
+    m_rasp = rasp;
+    addRequirements(m_chas, m_rasp);
     // Use addRequirements() here to declare subsystem dependencies.
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -38,35 +33,23 @@ public class ImageRecognitionMotion extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ball.get_ball_count() == 5) {
-      double ret[] = m_comms.getXYHex();
-      if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
-      } else {
-        //look around
-        m_chassis.drive.arcadeDrive(0, -1);
-      }
-    } else {
-      double ret[] = m_comms.getXYBall();
-      if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
-      } else {
-        //look around
-        m_chassis.drive.arcadeDrive(0, -1);
-      }
-    }
+    //TODO: check shape of hex to dock properly by determining the alignment of the hex
 
-    
+    double[] directions = m_rasp.getXYHex();
+    m_chas.drive.arcadeDrive(directions[0], directions[1]);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //TODO: add magic value for hex area threshold
+    //TODO: check the shape of the detected hex to determine if fully docked
+    return m_rasp.getAreaHex() > 50;
   }
 }

@@ -7,66 +7,49 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
-import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.RaspberryPiCommunication;
 
-public class ImageRecognitionMotion extends CommandBase {
+public class DoCompleteBallOuttake extends CommandBase {
+  private double time;
   /**
-   * Creates a new ImageRecognitionMotion.
+   * Creates a new DoCompleteBallOuttake.
    */
-  private final Chassis m_chassis;
-  private final RaspberryPiCommunication m_comms;
-  private final BallContainerManagement m_cont;
-  private final BallManagement m_ball;
-  public ImageRecognitionMotion(Chassis chassis, RaspberryPiCommunication comms, BallContainerManagement cont, BallManagement ball) {
-    m_chassis = chassis;
-    m_comms = comms;
-    m_cont = cont;
-    m_ball = ball;
-    addRequirements(m_chassis, m_comms, m_cont, m_ball);
-
+  private BallManagement m_b;
+  private BallContainerManagement m_c;
+  public DoCompleteBallOuttake(BallManagement m_ballman, BallContainerManagement c) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_b = m_ballman;
+    m_c = c;
+    addRequirements(m_b, m_c);
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    time = Timer.getFPGATimestamp();
+    m_c.lift_arm();
+    m_b.set_ball_intake(-1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ball.get_ball_count() == 5) {
-      double ret[] = m_comms.getXYHex();
-      if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
-      } else {
-        //look around
-        m_chassis.drive.arcadeDrive(0, -1);
-      }
-    } else {
-      double ret[] = m_comms.getXYBall();
-      if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
-      } else {
-        //look around
-        m_chassis.drive.arcadeDrive(0, -1);
-      }
-    }
-
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_b.reset_ball();
+    m_b.set_ball_intake(0);
+    m_c.release_arm();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Timer.getFPGATimestamp() - time > 5.0;
   }
 }

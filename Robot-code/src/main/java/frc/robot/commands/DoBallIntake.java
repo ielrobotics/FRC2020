@@ -7,66 +7,58 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.RaspberryPiCommunication;
 
-public class ImageRecognitionMotion extends CommandBase {
+public class DoBallIntake extends CommandBase {
   /**
-   * Creates a new ImageRecognitionMotion.
+   * Creates a new DoBallIntake.
    */
-  private final Chassis m_chassis;
-  private final RaspberryPiCommunication m_comms;
-  private final BallContainerManagement m_cont;
   private final BallManagement m_ball;
-  public ImageRecognitionMotion(Chassis chassis, RaspberryPiCommunication comms, BallContainerManagement cont, BallManagement ball) {
-    m_chassis = chassis;
-    m_comms = comms;
-    m_cont = cont;
+  private final RaspberryPiCommunication m_rasp;
+  private final Chassis m_chas;
+  private double time;
+  public DoBallIntake(BallManagement ball, RaspberryPiCommunication rasp, Chassis ch) {
     m_ball = ball;
-    addRequirements(m_chassis, m_comms, m_cont, m_ball);
-
+    m_rasp = rasp;
+    m_chas = ch;
+    addRequirements(m_ball, m_rasp, m_chas);
     // Use addRequirements() here to declare subsystem dependencies.
   }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    time = 0;
+    m_ball.set_ball_intake(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ball.get_ball_count() == 5) {
-      double ret[] = m_comms.getXYHex();
-      if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
-      } else {
-        //look around
-        m_chassis.drive.arcadeDrive(0, -1);
-      }
-    } else {
-      double ret[] = m_comms.getXYBall();
-      if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
-      } else {
-        //look around
-        m_chassis.drive.arcadeDrive(0, -1);
-      }
+    //TODO: Insert area threshold for circle
+  
+    if (m_rasp.getAreaCircle() > 50 && time == 0) {
+      time = Timer.getFPGATimestamp();
     }
-
-    
+    double[] directions = m_rasp.getXYBall();
+    m_chas.drive.arcadeDrive(directions[0], directions[1]);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_ball.set_ball_intake(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //TODO: test if 1 second is too much, test for optimal time
+
+    return time != 0 && Timer.getFPGATimestamp() - time > 1;
   }
 }

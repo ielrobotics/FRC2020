@@ -8,7 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallStatus;
+import frc.robot.subsystems.BallContainerManagement;
+import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.JoystickInterface;
 
@@ -19,13 +20,17 @@ public class JoystickMotion extends CommandBase {
    * Creates a new JoystickMotion.
    */
   private final Chassis m_sub;
-  private final BallStatus m_ball;
   private final Joystick joystick;
-  public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallStatus m_b) {
+  private final BallManagement m_ball;
+  private final BallContainerManagement m_cont;
+  private final DoCompleteBallOuttake c;
+  public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallManagement ball, BallContainerManagement cont) {
     m_sub = m_chassis;
-    m_ball = m_b;
-    addRequirements(m_sub, m_joystick, m_b);
+    m_cont = cont;
+    m_ball = ball;
+    addRequirements(m_sub, m_joystick, m_cont, m_ball);
     joystick = m_joystick.joystick;
+    c = new DoCompleteBallOuttake(m_ball, m_cont);
   }
 
   // Called when the command is initially scheduled.
@@ -40,7 +45,6 @@ double turboamount;
   public void execute() {
     SmartDashboard.putString("Joystick", joystick.getName());
     //joystick turbo key
-    
     //Turbo key
     if(joystick.getRawButton(9)){
       turboamount = 0.2;
@@ -69,12 +73,13 @@ double turboamount;
     m_sub.drive.setMaxOutput(turboamount);
     //Ball throw key (throw constantly)
     if (joystick.getRawButton(2)) {
-      m_ball.ballThrow();
+      c.initialize();
+      while (!c.isFinished()) {
+        c.execute();
+      }
+      c.end(false);
     }
   }
-
-  
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -85,7 +90,4 @@ double turboamount;
   public boolean isFinished() {
     return false;
   }
-
-
-
 }

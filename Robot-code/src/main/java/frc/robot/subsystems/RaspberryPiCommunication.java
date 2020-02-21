@@ -15,25 +15,38 @@ public class RaspberryPiCommunication extends SubsystemBase {
    */
   private final NetworkTableInstance instance;
   private final NetworkTable table;
-  private final NetworkTableEntry imageprocessing_ball_commands;
-  private final NetworkTableEntry imageprocessing_hex_commands;
+  private final NetworkTableEntry yaw;
+  private final NetworkTableEntry pipeline;
+  private final NetworkTableEntry area;
   public RaspberryPiCommunication() {
     instance = NetworkTableInstance.getDefault();
-    instance.setServer("10.80.58.254");
-    table = instance.getTable("datatable");
-    imageprocessing_ball_commands = table.getEntry("image-processing-ball-pipeline");
-    imageprocessing_hex_commands = table.getEntry("image-processing-hex-pipeline");
+    table = instance.getTable("chameleon-vision").getSubTable("camera");
+    yaw = table.getEntry("targetYaw");
+    pipeline = table.getEntry("pipeline");
+    area = table.getEntry("area");
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
   public double[] getXYBall() {
-    double def[] = {-1,-1,-1};
-    return imageprocessing_ball_commands.getDoubleArray(def);
+    pipeline.setDouble(1.0);
+    double val = yaw.getDouble(-999999999.0);
+    double[] ret = {((val != -999999999.0) ? 1.0 : 0.0) * val, (val != -999999999.0) ? 1.0 : 0.0};
+    return ret;
   }
   public double[] getXYHex() {
-    double def[] = {-1,-1,-1};
-    return imageprocessing_hex_commands.getDoubleArray(def);
+    pipeline.setDouble(2.0);
+    double val = yaw.getDouble(-999999999.0);
+    double[] ret = {((val != -999999999.0) ? 1.0 : 0.0) * val, (val != -999999999.0) ? 1.0 : 0.0};
+    return ret;
+  }
+  public double getAreaCircle() {
+    pipeline.setDouble(1.0);
+    return area.getDouble(-1.0);
+  }
+  public double getAreaHex() {
+    pipeline.setDouble(2.0);
+    return area.getDouble(-1.0);
   }
 }

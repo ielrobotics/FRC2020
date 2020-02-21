@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ImageRecognitionMotion;
 import frc.robot.commands.JoystickMotion;
-import frc.robot.subsystems.BallStatus;
+import frc.robot.subsystems.BallContainerManagement;
+import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.RaspberryPiCommunication;
@@ -28,7 +29,8 @@ public class Robot extends TimedRobot {
   private JoystickInterface m_joystick;
   private Chassis m_chassis;
   private RaspberryPiCommunication m_comms;
-  private BallStatus m_ball;
+  private BallContainerManagement m_cont;
+  private BallManagement m_ball;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -40,7 +42,8 @@ public class Robot extends TimedRobot {
     m_joystick = new JoystickInterface();
     m_chassis = new Chassis();
     m_comms = new RaspberryPiCommunication();
-    m_ball = new BallStatus();
+    m_cont = new BallContainerManagement();
+    m_ball = new BallManagement();
   }
 
 
@@ -79,7 +82,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_ball);
+    m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
     m_autonomousCommand.schedule();
     //only needed for switcheroo
     if (m_teleopCommand != null) {
@@ -103,7 +106,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_teleopCommand = new JoystickMotion(m_chassis, m_joystick, m_ball);
+    m_teleopCommand = new JoystickMotion(m_chassis, m_joystick, m_ball, m_cont);
     m_teleopCommand.schedule();
   }
 
