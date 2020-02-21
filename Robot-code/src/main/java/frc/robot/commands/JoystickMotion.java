@@ -12,7 +12,6 @@ import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.JoystickInterface;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickMotion extends CommandBase {
@@ -79,6 +78,21 @@ double turboamount;
       }
       c.end(false);
     }
+    if (joystick.getRawButtonPressed(1)) {
+      m_cont.lift_arm();
+      m_ball.set_ball_intake(-1);
+    }
+    if (joystick.getRawButtonReleased(1)) {
+      m_ball.set_ball_intake(0);
+      m_cont.release_arm();
+      m_ball.reset_ball();
+    }
+    if (!joystick.getRawButton(1) && joystick.getRawButton(2)) {
+      m_ball.set_ball_intake(1);
+    } else if (!joystick.getRawButton(1)) {
+      m_ball.set_ball_intake(0);
+    }
+
   }
   // Called once the command ends or is interrupted.
   @Override
