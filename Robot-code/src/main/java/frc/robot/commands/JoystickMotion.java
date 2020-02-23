@@ -71,13 +71,7 @@ double turboamount;
     }
     m_sub.drive.setMaxOutput(turboamount);
     //Ball throw key (throw constantly)
-    if (joystick.getRawButton(2)) {
-      c.initialize();
-      while (!c.isFinished()) {
-        c.execute();
-      }
-      c.end(false);
-    }
+    /*
     if (joystick.getRawButtonPressed(1)) {
       m_cont.lift_arm();
       m_ball.set_ball_intake(-1);
@@ -87,12 +81,23 @@ double turboamount;
       m_cont.release_arm();
       m_ball.reset_ball();
     }
+    */
+    if (joystick.getRawButton(2)) {
+      m_ball.set_ball_intake(1);
+    } else if (joystick.getRawButton(1)) {
+      m_ball.set_ball_intake(-1);
+    } else {
+      m_ball.set_ball_intake(0);
+    }
+
+    /*
     if (!joystick.getRawButton(1) && joystick.getRawButton(2)) {
       m_ball.set_ball_intake(1);
     } else if (!joystick.getRawButton(1)) {
       m_ball.set_ball_intake(0);
     }
-
+    */
+    m_cont.container_lift_motor.set(joystick.getRawAxis(1) * 0.3 - 0.1);
   }
   // Called once the command ends or is interrupted.
   @Override

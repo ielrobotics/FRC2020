@@ -14,9 +14,12 @@ public class BallContainerManagement extends SubsystemBase {
   /**
    * Creates a new BallContainerManagement.
    */
-  private final VictorSP container_lift_motor;
+  //TODO: make this private later
+
+  public final VictorSP container_lift_motor;
+  
   public BallContainerManagement() {
-    container_lift_motor = new VictorSP(00);
+    container_lift_motor = new VictorSP(0);
   }
 
   @Override
