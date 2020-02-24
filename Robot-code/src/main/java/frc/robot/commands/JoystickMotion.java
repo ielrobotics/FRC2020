@@ -80,7 +80,7 @@ double turboamount;
       m_ball.set_ball_intake(0);
       m_cont.release_arm();
       m_ball.reset_ball();
-    }
+    }              
     */
     if (joystick.getRawButton(2)) {
       m_ball.set_ball_intake(1);
@@ -97,7 +97,7 @@ double turboamount;
       m_ball.set_ball_intake(0);
     }
     */
-    m_cont.container_lift_motor.set(joystick.getRawAxis(1) * 0.3 - 0.1);
+    //m_cont.container_lift_motor.set(joystick.getRawAxis(1) * 0.3 - 0.1);
   }
   // Called once the command ends or is interrupted.
   @Override

@@ -7,30 +7,34 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 
-public class BallContainerManagement extends SubsystemBase {
+public class BallContainerManagement extends PIDSubsystem {
   /**
    * Creates a new BallContainerManagement.
    */
-  //TODO: make this private later
-
-  public final VictorSP container_lift_motor;
-  
   public BallContainerManagement() {
-    container_lift_motor = new VictorSP(0);
+    //TODO: measure P, I and D
+    super(
+        // The PIDController used by the subsystem
+        new PIDController(0, 0, 0));
   }
 
   @Override
-  public void periodic() {
-    container_lift_motor.feed();
-    // This method will be called once per scheduler run
+  public void useOutput(double output, double setpoint) {
+    // Use the output here    
+  }
+
+  @Override
+  public double getMeasurement() {
+    // Return the process variable measurement here
+    return 0;
   }
   public void lift_arm() {
-    //TODO: lift arm
+
   }
   public void release_arm() {
-    //TODO: release arm
+
   }
 }
