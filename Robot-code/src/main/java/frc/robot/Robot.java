@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_teleopCommand = new JoystickMotion(m_chassis, m_joystick, m_ball, m_cont);
+    m_teleopCommand = new JoystickMotion(m_chassis, m_joystick, m_ball, m_cont, m_elev);
     m_teleopCommand.schedule();
   }
 
