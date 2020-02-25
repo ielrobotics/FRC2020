@@ -15,6 +15,7 @@ import frc.robot.commands.JoystickMotion;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.RaspberryPiCommunication;
 /**
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
   private RaspberryPiCommunication m_comms;
   private BallContainerManagement m_cont;
   private BallManagement m_ball;
+  private Elevator m_elev;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot {
     m_comms = new RaspberryPiCommunication();
     m_cont = new BallContainerManagement();
     m_ball = new BallManagement();
+    m_elev = new Elevator();
   }
 
 

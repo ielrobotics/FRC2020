@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
+import frc.robot.subsystems.Elevator.elevator_states;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickMotion extends CommandBase {
@@ -22,11 +24,13 @@ public class JoystickMotion extends CommandBase {
   private final Joystick joystick;
   private final BallManagement m_ball;
   private final BallContainerManagement m_cont;
-  public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallManagement ball, BallContainerManagement cont) {
+  private final Elevator m_elev;
+  public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallManagement ball, BallContainerManagement cont, Elevator elev) {
     m_sub = m_chassis;
     m_cont = cont;
     m_ball = ball;
-    addRequirements(m_sub, m_joystick, m_cont, m_ball);
+    m_elev = elev;
+    addRequirements(m_sub, m_joystick, m_cont, m_ball, m_elev);
     joystick = m_joystick.joystick;
   }
 
@@ -92,6 +96,13 @@ double turboamount;
     }
     if (joystick.getRawButtonPressed(4)) {
       m_cont.release_arm();
+    }
+    if (joystick.getRawButton(5)) {
+      m_elev.set_elevator_state(elevator_states.ELEVATOR_ESCALATE);
+    } else if (joystick.getRawButton(6)) {
+      m_elev.set_elevator_state(elevator_states.ELEVATOR_DE_ESCALATE);
+    } else {
+      m_elev.set_elevator_state(elevator_states.ELEVATOR_STOPPED);
     }
     /*
     if (!joystick.getRawButton(1) && joystick.getRawButton(2)) {
