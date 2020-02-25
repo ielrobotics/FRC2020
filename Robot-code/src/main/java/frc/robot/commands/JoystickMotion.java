@@ -22,14 +22,12 @@ public class JoystickMotion extends CommandBase {
   private final Joystick joystick;
   private final BallManagement m_ball;
   private final BallContainerManagement m_cont;
-  private final DoCompleteBallOuttake c;
   public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallManagement ball, BallContainerManagement cont) {
     m_sub = m_chassis;
     m_cont = cont;
     m_ball = ball;
     addRequirements(m_sub, m_joystick, m_cont, m_ball);
     joystick = m_joystick.joystick;
-    c = new DoCompleteBallOuttake(m_ball, m_cont);
   }
 
   // Called when the command is initially scheduled.
@@ -89,7 +87,12 @@ double turboamount;
     } else {
       m_ball.set_ball_intake(0);
     }
-
+    if (joystick.getRawButtonPressed(3)) {
+      m_cont.lift_arm();
+    }
+    if (joystick.getRawButtonPressed(4)) {
+      m_cont.release_arm();
+    }
     /*
     if (!joystick.getRawButton(1) && joystick.getRawButton(2)) {
       m_ball.set_ball_intake(1);
