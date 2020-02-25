@@ -11,15 +11,16 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Chassis extends SubsystemBase {
   /**
    * Creates a new Chassis.
    */
   public DifferentialDrive drive;
-  public Chassis() {
+  public Chassis(WPI_TalonSRX frontLeft,WPI_TalonSRX frontRight,WPI_VictorSPX backLeft,WPI_VictorSPX backRight) {
     //3 4 sag 1 2 sol
-    drive = new DifferentialDrive(new SpeedControllerGroup(new WPI_VictorSPX(1),new WPI_VictorSPX(2)),new SpeedControllerGroup(new WPI_VictorSPX(3),new WPI_VictorSPX(4)));
+    drive = new DifferentialDrive(new SpeedControllerGroup(frontRight,backRight),new SpeedControllerGroup(frontLeft,backLeft));
     drive.setMaxOutput(0.7);
   }
 
