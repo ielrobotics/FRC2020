@@ -18,9 +18,9 @@ public class Chassis extends SubsystemBase {
    * Creates a new Chassis.
    */
   public DifferentialDrive drive;
-  public Chassis(WPI_TalonSRX frontLeft,WPI_TalonSRX frontRight,WPI_VictorSPX backLeft,WPI_VictorSPX backRight) {
+  public Chassis(int frontLeft,int frontRight,int backLeft,int backRight) {
     //3 4 sag 1 2 sol
-    drive = new DifferentialDrive(new SpeedControllerGroup(frontRight,backRight),new SpeedControllerGroup(frontLeft,backLeft));
+    drive = new DifferentialDrive(new SpeedControllerGroup(new WPI_TalonSRX(frontRight),new WPI_VictorSPX(backRight)),new SpeedControllerGroup(new SpeedControllerGroup(new WPI_TalonSRX(frontLeft),new WPI_VictorSPX(backLeft))));
     drive.setMaxOutput(0.7);
   }
 

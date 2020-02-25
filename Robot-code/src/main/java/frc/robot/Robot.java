@@ -18,8 +18,6 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.RaspberryPiCommunication;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -45,7 +43,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_joystick = new JoystickInterface();
     //FrontLeft = 1 FrontRight = 2 BackLeft = 3 BackRight = 4
-    m_chassis = new Chassis(new WPI_TalonSRX(1),new WPI_TalonSRX(2),new WPI_VictorSPX(3),new WPI_VictorSPX(4));
+    m_chassis = new Chassis(1,2,3,4);
     m_comms = new RaspberryPiCommunication();
     m_cont = new BallContainerManagement();
     m_ball = new BallManagement();
@@ -112,7 +110,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_teleopCommand = new JoystickMotion(m_chassis, m_joystick, m_ball, m_cont);
+    m_teleopCommand = new JoystickMotion(m_chassis, m_joystick, m_ball, m_cont, m_elev);
     m_teleopCommand.schedule();
   }
 
