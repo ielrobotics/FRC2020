@@ -43,6 +43,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_joystick = new JoystickInterface();
     //FrontLeft = 1 FrontRight = 2 BackLeft = 3 BackRight = 4
+    //1, 2 are talons
+    //TODO: CAN Tuner motor 1 and 2
     m_chassis = new Chassis(1,2,3,4);
     m_comms = new RaspberryPiCommunication();
     m_cont = new BallContainerManagement();

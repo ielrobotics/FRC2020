@@ -18,7 +18,7 @@ public class BallContainerManagement extends PIDSubsystem {
   private VictorSP ball_motor;
   private AnalogInput input;
   public BallContainerManagement() {
-    //TODO: measure P, I and D
+    //TODO: Measure P, I and D
     super(
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
@@ -33,7 +33,7 @@ public class BallContainerManagement extends PIDSubsystem {
   }
   @Override
   public double getMeasurement() {
-    //TODO: check if this blows up the robot when left at this state
+    //TODO: Check if this blows up the robot when left at this state
     return input.pidGet();
   }
   public void lift_arm() {

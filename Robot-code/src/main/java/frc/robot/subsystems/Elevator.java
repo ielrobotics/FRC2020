@@ -24,7 +24,7 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //TODO: check if motor outputs need to be backwards
+    //TODO: Check if motor outputs need to be backwards
     switch (elev_state) {
       case ELEVATOR_STOPPED:
         elevator_motor.set(ControlMode.PercentOutput, 0);
