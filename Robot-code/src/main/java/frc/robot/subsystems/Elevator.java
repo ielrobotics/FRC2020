@@ -18,7 +18,6 @@ public class Elevator extends SubsystemBase {
    */
   private VictorSPX elevator_motor;
   public Elevator() {
-    //TODO: Can Tuner the elevator motor into CAN 5
     elevator_motor = new VictorSPX(5);
   }
 
