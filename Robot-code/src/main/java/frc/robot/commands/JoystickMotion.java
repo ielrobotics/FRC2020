@@ -14,12 +14,16 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.Elevator.elevator_states;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickMotion extends CommandBase {
   /**
    * Creates a new JoystickMotion.
    */
+  private boolean autoBalanceXMode,autobalanceYMode;
   private final Chassis m_sub;
   private final Joystick joystick;
   private final BallManagement m_ball;
@@ -37,7 +41,11 @@ public class JoystickMotion extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    try {
+    } catch (RuntimeException ex) {
+      //TODO: handle exception
+      DriverStation.reportError("Error instantiating navX MXP"+ ex.getMessage(), true);
+    }
   }
 private final double POVMagicValues[][] = {{1, 0.5}, {1,1}, {0,1}, {-1,-1}, {-1,0.5}, {-1,1}, {0,-1}, {1,-1}};
 double turboamount;
@@ -117,7 +125,9 @@ double turboamount;
   @Override
   public void end(boolean interrupted) {
   }
+  public void balanceIt(){
 
+  }
   // Returns true when the command should end. test commit
   @Override
   public boolean isFinished() {
