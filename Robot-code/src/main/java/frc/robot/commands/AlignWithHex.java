@@ -33,7 +33,7 @@ public class AlignWithHex extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: check shape of hex to dock properly by determining the alignment of the hex
+    //TODO: Check shape of hex to dock properly by determining the alignment of the hex
 
     double[] directions = m_rasp.getXYHex();
     m_chas.drive.arcadeDrive(directions[0], directions[1]);
@@ -48,8 +48,8 @@ public class AlignWithHex extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //TODO: add magic value for hex area threshold
-    //TODO: check the shape of the detected hex to determine if fully docked
+    //TODO: Add magic value for hex area threshold
+    //TODO: Check the shape of the detected hex to determine if fully docked
     return m_rasp.getAreaHex() > 50;
   }
 }

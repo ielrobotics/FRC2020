@@ -57,7 +57,7 @@ public class DoBallIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //TODO: test if 1 second is too much, test for optimal time
+    //TODO: Test if 1 second is too much, test for optimal time
 
     return time != 0 && Timer.getFPGATimestamp() - time > 1;
   }
