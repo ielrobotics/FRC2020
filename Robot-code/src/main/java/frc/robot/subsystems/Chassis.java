@@ -23,7 +23,6 @@ public class Chassis extends SubsystemBase {
     drive = new DifferentialDrive(new SpeedControllerGroup(new WPI_TalonSRX(frontRight),new WPI_VictorSPX(backRight)),new SpeedControllerGroup(new SpeedControllerGroup(new WPI_TalonSRX(frontLeft),new WPI_VictorSPX(backLeft))));
     drive.setMaxOutput(0.7);
   }
-
   @Override
   public void periodic() {
     drive.feed();
