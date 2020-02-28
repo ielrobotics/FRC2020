@@ -32,7 +32,7 @@ public class BallContainerManagement extends PIDSubsystem {
   }
   @Override
   public double getMeasurement() {
-    return m_encoder.manipulatorEncoder.pidGet();
+    return m_encoder.get_manipulator_pid();
   }
   public void lift_arm() {
     //TODO: Get setpoints for the up and down states of the arm
