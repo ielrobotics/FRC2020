@@ -14,7 +14,6 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.Elevator.elevator_states;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickMotion extends CommandBase {
