@@ -15,7 +15,7 @@ public class BallManagement extends SubsystemBase {
    */
   private final VictorSP ball_manipulation_motor;
   public BallManagement() {
-    ball_count = 5;
+    ball_count = 3;
     ball_manipulation_motor = new VictorSP(1);
   }
 
