@@ -15,7 +15,6 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.Elevator.elevator_states;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JoystickMotion extends CommandBase {
   /**
    * Creates a new JoystickMotion.
@@ -43,7 +42,12 @@ double turboamount;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putString("Joystick", joystick.getName());
+    System.out.print("test print\n");
+    System.out.print("Encoder outputs:\nLeft: ");
+    System.out.print(m_sub.get_left_sensor());
+    System.out.print("\nRight: ");
+    System.out.print(m_sub.get_right_sensor());
+    System.out.print("\n");
     //joystick turbo key
     //Turbo key
     if(joystick.getRawButton(9)){

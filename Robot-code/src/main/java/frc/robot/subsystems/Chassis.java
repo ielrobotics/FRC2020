@@ -24,6 +24,7 @@ public class Chassis extends SubsystemBase {
     //3 4 sag 1 2 sol
     right_talon = new WPI_TalonSRX(frontRight);
     left_talon = new WPI_TalonSRX(frontLeft);
+    //TODO: check if this is the right config
     right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     drive = new DifferentialDrive(new SpeedControllerGroup(right_talon,new WPI_VictorSPX(backRight)),new SpeedControllerGroup(new SpeedControllerGroup(left_talon ,new WPI_VictorSPX(backLeft))));

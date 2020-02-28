@@ -50,7 +50,7 @@ public class BallManagement extends SubsystemBase {
    */
   public void increment_ball() {
     if (ball_count == 5) {
-      System.err.print("WARNING: Too many balls collected!");
+      System.out.print("WARNING: Too many balls collected!");
       return;
     }
     ball_count++;
