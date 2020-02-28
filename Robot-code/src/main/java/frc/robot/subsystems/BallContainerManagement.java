@@ -9,21 +9,20 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.VictorSP;
 public class BallContainerManagement extends PIDSubsystem {
   /**
    * Creates a new BallContainerManagement.
    */
-  private VictorSP ball_motor;
-  private AnalogInput input;
-  public BallContainerManagement() {
+  private final EncoderSubsystem m_encoder;
+  private final VictorSP ball_motor;
+  public BallContainerManagement(EncoderSubsystem e) {
     //TODO: Measure P, I and D
     super(
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
       ball_motor = new VictorSP(1);
-      input = new AnalogInput(0);
+      m_encoder = e;
   }
 
   @Override
@@ -33,8 +32,7 @@ public class BallContainerManagement extends PIDSubsystem {
   }
   @Override
   public double getMeasurement() {
-    //TODO: Check if this blows up the robot when left at this state
-    return input.pidGet();
+    return m_encoder.manipulatorEncoder.pidGet();
   }
   public void lift_arm() {
     //TODO: Get setpoints for the up and down states of the arm

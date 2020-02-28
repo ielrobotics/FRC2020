@@ -16,6 +16,7 @@ import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.EncoderSubsystem;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.RaspberryPiCommunication;
 /**
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
   private BallContainerManagement m_cont;
   private BallManagement m_ball;
   private Elevator m_elev;
+  private EncoderSubsystem m_encoder;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -44,9 +46,10 @@ public class Robot extends TimedRobot {
     m_joystick = new JoystickInterface();
     //FrontLeft = 1 FrontRight = 2 BackLeft = 3 BackRight = 4
     //1, 2 are talons
+    m_encoder = new EncoderSubsystem();
     m_chassis = new Chassis(1,2,3,4);
     m_comms = new RaspberryPiCommunication();
-    m_cont = new BallContainerManagement();
+    m_cont = new BallContainerManagement(m_encoder);
     m_ball = new BallManagement();
     m_elev = new Elevator();
   }
