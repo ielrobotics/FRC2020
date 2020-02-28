@@ -25,6 +25,7 @@ public class Chassis extends SubsystemBase {
     right_talon = new WPI_TalonSRX(frontRight);
     left_talon = new WPI_TalonSRX(frontLeft);
     right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     drive = new DifferentialDrive(new SpeedControllerGroup(right_talon,new WPI_VictorSPX(backRight)),new SpeedControllerGroup(new SpeedControllerGroup(left_talon ,new WPI_VictorSPX(backLeft))));
     drive.setMaxOutput(0.7);
   }
