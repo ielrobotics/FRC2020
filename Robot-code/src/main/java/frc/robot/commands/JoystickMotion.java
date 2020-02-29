@@ -37,7 +37,6 @@ public class JoystickMotion extends CommandBase {
   @Override
   public void initialize() {
   }
-private final double POVMagicValues[][] = {{1, 0.5}, {1,1}, {0,1}, {-1,-1}, {-1,0.5}, {-1,1}, {0,-1}, {1,-1}};
 double turboamount;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -67,12 +66,11 @@ double turboamount;
     */
 
     //reverse
-    double magiclist[] = POVMagicValues[joystick.getPOV() / 45];
     if (this.joystick.getRawButton(6)) {
-      this.m_sub.drive.arcadeDrive(magiclist[0], -magiclist[1]);
+      this.m_sub.drive.arcadeDrive(joystick.getRawAxis(0), -joystick.getRawAxis(1));
       turboamount = - turboamount;
     } else {
-      this.m_sub.drive.arcadeDrive(magiclist[0], magiclist[1]);
+      this.m_sub.drive.arcadeDrive(joystick.getRawAxis(0), joystick.getRawAxis(1));
     }
     this.m_sub.drive.setMaxOutput(turboamount);
     //Ball throw key (throw constantly)
