@@ -11,14 +11,20 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.RaspberryPiCommunication;
 
-public class AlignWithHex extends CommandBase {
+public class AlignWithOcta extends CommandBase {
 
   /**
    * Creates a new AlignWithHex.
    */
+  /* 
+
+    This subsystem is for detecting octagon under goal
+
+  */
+  
   private final RaspberryPiCommunication m_rasp;
   private final Chassis m_chas;
-  public AlignWithHex(Chassis chassis, RaspberryPiCommunication rasp) {
+  public AlignWithOcta(Chassis chassis, RaspberryPiCommunication rasp) {
     this.m_chas = chassis;
     this.m_rasp = rasp;
     addRequirements(m_chas, m_rasp);
