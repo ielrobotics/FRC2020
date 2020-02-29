@@ -19,19 +19,19 @@ public class DoCompleteBallOuttake extends CommandBase {
    */
   private BallManagement m_b;
   private BallContainerManagement m_c;
-  public DoCompleteBallOuttake(BallManagement m_ballman, BallContainerManagement c) {
+  public DoCompleteBallOuttake(BallManagement m_ballman, BallContainerManagement m_ballcon) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_b = m_ballman;
-    m_c = c;
-    addRequirements(m_b, m_c);
+    this.m_b = m_ballman;
+    this.m_c = m_ballcon;
+    addRequirements(this.m_b, this.m_c);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    time = Timer.getFPGATimestamp();
-    m_c.lift_arm();
-    m_b.set_ball_intake(-1);
+    this.time = Timer.getFPGATimestamp();
+    this.m_c.lift_arm();
+    this.m_b.set_ball_intake(-1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,9 +42,9 @@ public class DoCompleteBallOuttake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_b.reset_ball();
-    m_b.set_ball_intake(0);
-    m_c.release_arm();
+    this.m_b.reset_ball();
+    this.m_b.set_ball_intake(0);
+    this.m_c.release_arm();
   }
 
   // Returns true when the command should end.

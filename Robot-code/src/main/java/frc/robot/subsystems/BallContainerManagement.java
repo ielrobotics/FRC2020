@@ -22,18 +22,18 @@ public class BallContainerManagement extends PIDSubsystem {
     super(
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
-      manipulator_analog = new AnalogInput(4);
-      ball_motor = new VictorSP(1);
+      this.manipulator_analog = new AnalogInput(4);
+      this.ball_motor = new VictorSP(1);
   }
 
   @Override
   public void useOutput(double output, double setpoint) {
     // Use the output here    
-    ball_motor.set(output);
+    this.ball_motor.set(output);
   }
   @Override
   public double getMeasurement() {
-    return get_manipulator_pid();
+    return this.manipulator_analog.pidGet();
   }
   public void lift_arm() {
     //TODO: Get setpoints for the up and down states of the arm
@@ -41,8 +41,5 @@ public class BallContainerManagement extends PIDSubsystem {
   }
   public void release_arm() {
     this.setSetpoint(0);
-  }
-  private double get_manipulator_pid() {
-    return manipulator_analog.pidGet();
   }
 }

@@ -19,9 +19,9 @@ public class TurnAbsoluteAngle extends CommandBase {
   private final double target_angle;
   public TurnAbsoluteAngle(NavX navx, Chassis chassis, double angle) {
     addRequirements(navx, chassis);
-    m_navx = navx;
-    m_chassis = chassis;
-    target_angle = angle;
+    this.m_navx = navx;
+    this.m_chassis = chassis;
+    this.target_angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,13 +34,13 @@ public class TurnAbsoluteAngle extends CommandBase {
   @Override
   public void execute() {
     //TODO: Test if spin is wrong
-    m_chassis.drive.arcadeDrive(0, (m_navx.ah.getAngle() < target_angle) ? 1 : -1);
+    this.m_chassis.drive.arcadeDrive(0, (this.m_navx.ah.getAngle() < target_angle) ? 1 : -1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_chassis.drive.arcadeDrive(0, 0);
+    this.m_chassis.drive.arcadeDrive(0, 0);
   }
 
   // Returns true when the command should end.

@@ -21,35 +21,35 @@ public class TurnRelativeAngle extends CommandBase {
   private final double target_angle;
   public TurnRelativeAngle(NavX navx, Chassis chassis, double angle) {
     addRequirements(navx, chassis);
-    m_navx = navx;
-    m_chassis = chassis;
-    target_angle = angle;
+    this.m_navx = navx;
+    this.m_chassis = chassis;
+    this.target_angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    command = new TurnAbsoluteAngle(m_navx, m_chassis, target_angle + m_navx.ah.getAngle());
-    command.initialize();
+    this.command = new TurnAbsoluteAngle(this.m_navx, this.m_chassis, this.target_angle + this.m_navx.ah.getAngle());
+    this.command.initialize();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    command.execute();
+    this.command.execute();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    command.end(interrupted);
+    this.command.end(interrupted);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     //1 degree threshold
-    return command.isFinished();
+    return this.command.isFinished();
   }
 }

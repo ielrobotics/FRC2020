@@ -22,11 +22,11 @@ public class ImageRecognitionMotion extends CommandBase {
   private final BallContainerManagement m_cont;
   private final BallManagement m_ball;
   public ImageRecognitionMotion(Chassis chassis, RaspberryPiCommunication comms, BallContainerManagement cont, BallManagement ball) {
-    m_chassis = chassis;
-    m_comms = comms;
-    m_cont = cont;
-    m_ball = ball;
-    addRequirements(m_chassis, m_comms, m_cont, m_ball);
+    this.m_chassis = chassis;
+    this.m_comms = comms;
+    this.m_cont = cont;
+    this.m_ball = ball;
+    addRequirements(this.m_chassis, this.m_comms, this.m_cont, this.m_ball);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -38,21 +38,21 @@ public class ImageRecognitionMotion extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_ball.get_ball_count() == 5) {
-      double ret[] = m_comms.getXYHex();
+    if (this.m_ball.get_ball_count() == 5) {
+      double ret[] = this.m_comms.getXYHex();
       if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
+        this.m_chassis.drive.arcadeDrive(ret[0], ret[1]);
       } else {
         //look around
-        m_chassis.drive.arcadeDrive(0, -1);
+        this.m_chassis.drive.arcadeDrive(0, -1);
       }
     } else {
-      double ret[] = m_comms.getXYBall();
+      double ret[] = this.m_comms.getXYBall();
       if (ret.length == 3) {
-        m_chassis.drive.arcadeDrive(ret[0], ret[1]);
+        this.m_chassis.drive.arcadeDrive(ret[0], ret[1]);
       } else {
         //look around
-        m_chassis.drive.arcadeDrive(0, -1);
+        this.m_chassis.drive.arcadeDrive(0, -1);
       }
     }
 

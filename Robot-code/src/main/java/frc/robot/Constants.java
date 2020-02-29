@@ -18,5 +18,5 @@ package frc.robot;
 public final class Constants {
     //should suffice
     //if accuracy problems occur, consider adding more digits
-    public static final double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164;
+    public static final double PI = Math.PI;
 }

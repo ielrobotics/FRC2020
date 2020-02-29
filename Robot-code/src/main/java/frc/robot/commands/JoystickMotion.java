@@ -25,12 +25,12 @@ public class JoystickMotion extends CommandBase {
   private final BallContainerManagement m_cont;
   private final Elevator m_elev;
   public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallManagement ball, BallContainerManagement cont, Elevator elev) {
-    m_sub = m_chassis;
-    m_cont = cont;
-    m_ball = ball;
-    m_elev = elev;
-    addRequirements(m_sub, m_joystick, m_cont, m_ball, m_elev);
-    joystick = m_joystick.joystick;
+    this.m_sub = m_chassis;
+    this.m_cont = cont;
+    this.m_ball = ball;
+    this.m_elev = elev;
+    addRequirements(this.m_sub, m_joystick, this.m_cont, this.m_ball, this.m_elev);
+    this.joystick = m_joystick.joystick;
   }
 
   // Called when the command is initially scheduled.
@@ -44,17 +44,17 @@ double turboamount;
   public void execute() {
     System.out.print("test print\n");
     System.out.print("Encoder outputs:\nLeft: ");
-    System.out.print(m_sub.get_left_sensor());
+    System.out.print(this.m_sub.get_left_sensor());
     System.out.print("\nRight: ");
-    System.out.print(m_sub.get_right_sensor());
+    System.out.print(this.m_sub.get_right_sensor());
     System.out.print("\n");
     //joystick turbo key
     //Turbo key
-    if(joystick.getRawButton(9)){
+    if(this.joystick.getRawButton(9)){
       turboamount = 0.2;
     } else {
       turboamount = joystick.getRawAxis(3);
-      if (!joystick.getRawButton(5)) {
+      if (!this.joystick.getRawButton(5)) {
         turboamount = turboamount * 0.5 + 0.5;
       }
     }
@@ -68,13 +68,13 @@ double turboamount;
 
     //reverse
     double magiclist[] = POVMagicValues[joystick.getPOV() / 45];
-    if (joystick.getRawButton(6)) {
-      m_sub.drive.arcadeDrive(magiclist[0], -magiclist[1]);
+    if (this.joystick.getRawButton(6)) {
+      this.m_sub.drive.arcadeDrive(magiclist[0], -magiclist[1]);
       turboamount = - turboamount;
     } else {
-      m_sub.drive.arcadeDrive(magiclist[0], magiclist[1]);
+      this.m_sub.drive.arcadeDrive(magiclist[0], magiclist[1]);
     }
-    m_sub.drive.setMaxOutput(turboamount);
+    this.m_sub.drive.setMaxOutput(turboamount);
     //Ball throw key (throw constantly)
     /*
     if (joystick.getRawButtonPressed(1)) {
@@ -87,25 +87,25 @@ double turboamount;
       m_ball.reset_ball();
     }              
     */
-    if (joystick.getRawButton(2)) {
-      m_ball.set_ball_intake(1);
-    } else if (joystick.getRawButton(1)) {
-      m_ball.set_ball_intake(-1);
+    if (this.joystick.getRawButton(2)) {
+      this.m_ball.set_ball_intake(1);
+    } else if (this.joystick.getRawButton(1)) {
+      this.m_ball.set_ball_intake(-1);
     } else {
-      m_ball.set_ball_intake(0);
+      this.m_ball.set_ball_intake(0);
     }
-    if (joystick.getRawButtonPressed(3)) {
-      m_cont.lift_arm();
+    if (this.joystick.getRawButtonPressed(3)) {
+      this.m_cont.lift_arm();
     }
-    if (joystick.getRawButtonPressed(4)) {
-      m_cont.release_arm();
+    if (this.joystick.getRawButtonPressed(4)) {
+      this.m_cont.release_arm();
     }
-    if (joystick.getRawButton(5)) {
-      m_elev.set_elevator_state(elevator_states.ELEVATOR_ESCALATE);
-    } else if (joystick.getRawButton(6)) {
-      m_elev.set_elevator_state(elevator_states.ELEVATOR_DE_ESCALATE);
+    if (this.joystick.getRawButton(5)) {
+      this.m_elev.set_elevator_state(elevator_states.ELEVATOR_ESCALATE);
+    } else if (this.joystick.getRawButton(6)) {
+      this.m_elev.set_elevator_state(elevator_states.ELEVATOR_DE_ESCALATE);
     } else {
-      m_elev.set_elevator_state(elevator_states.ELEVATOR_STOPPED);
+      this.m_elev.set_elevator_state(elevator_states.ELEVATOR_STOPPED);
     }
     /*
     if (!joystick.getRawButton(1) && joystick.getRawButton(2)) {

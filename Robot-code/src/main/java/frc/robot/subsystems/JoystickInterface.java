@@ -16,7 +16,7 @@ public class JoystickInterface extends SubsystemBase {
    */
   public final Joystick joystick;
   public JoystickInterface() {
-    joystick = new Joystick(1);
+    this.joystick = new Joystick(1);
     
   }
 

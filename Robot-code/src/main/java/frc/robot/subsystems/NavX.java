@@ -16,11 +16,11 @@ public class NavX extends SubsystemBase {
   public AHRS ah;
 
   public NavX() {
-    ah = new AHRS();
-    while (ah.isCalibrating()) {
+    this.ah = new AHRS();
+    while (this.ah.isCalibrating()) {
       //wait for the sensor to calibrate
     }
-    ah.zeroYaw();
+    this.ah.zeroYaw();
   }
   @Override
   public void periodic() {

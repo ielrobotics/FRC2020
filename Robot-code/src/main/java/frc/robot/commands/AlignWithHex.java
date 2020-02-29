@@ -18,9 +18,9 @@ public class AlignWithHex extends CommandBase {
    */
   private final RaspberryPiCommunication m_rasp;
   private final Chassis m_chas;
-  public AlignWithHex(Chassis c, RaspberryPiCommunication rasp) {
-    m_chas = c;
-    m_rasp = rasp;
+  public AlignWithHex(Chassis chassis, RaspberryPiCommunication rasp) {
+    this.m_chas = chassis;
+    this.m_rasp = rasp;
     addRequirements(m_chas, m_rasp);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -36,7 +36,7 @@ public class AlignWithHex extends CommandBase {
     //TODO: Check shape of hex to dock properly by determining the alignment of the hex
 
     double[] directions = m_rasp.getXYHex();
-    m_chas.drive.arcadeDrive(directions[0], directions[1]);
+    this.m_chas.drive.arcadeDrive(directions[0], directions[1]);
   }
 
   // Called once the command ends or is interrupted.

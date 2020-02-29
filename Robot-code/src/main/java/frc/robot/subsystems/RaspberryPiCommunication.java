@@ -19,34 +19,34 @@ public class RaspberryPiCommunication extends SubsystemBase {
   private final NetworkTableEntry pipeline;
   private final NetworkTableEntry area;
   public RaspberryPiCommunication() {
-    instance = NetworkTableInstance.getDefault();
-    table = instance.getTable("chameleon-vision").getSubTable("camera");
-    yaw = table.getEntry("targetYaw");
-    pipeline = table.getEntry("pipeline");
-    area = table.getEntry("area");
+    this.instance = NetworkTableInstance.getDefault();
+    this.table = instance.getTable("chameleon-vision").getSubTable("camera");
+    this.yaw = table.getEntry("targetYaw");
+    this.pipeline = table.getEntry("pipeline");
+    this.area = table.getEntry("area");
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
   public double[] getXYBall() {
-    pipeline.setDouble(1.0);
+    this.pipeline.setDouble(1.0);
     double val = yaw.getDouble(-999999999.0);
     double[] ret = {((val != -999999999.0) ? 1.0 : 0.0) * val, (val != -999999999.0) ? 1.0 : 0.0};
     return ret;
   }
   public double[] getXYHex() {
-    pipeline.setDouble(2.0);
+    this.pipeline.setDouble(2.0);
     double val = yaw.getDouble(-999999999.0);
     double[] ret = {((val != -999999999.0) ? 1.0 : 0.0) * val, (val != -999999999.0) ? 1.0 : 0.0};
     return ret;
   }
   public double getAreaCircle() {
-    pipeline.setDouble(1.0);
+    this.pipeline.setDouble(1.0);
     return area.getDouble(-1.0);
   }
   public double getAreaHex() {
-    pipeline.setDouble(2.0);
+    this.pipeline.setDouble(2.0);
     return area.getDouble(-1.0);
   }
 }

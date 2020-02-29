@@ -21,19 +21,19 @@ public class DoBallIntake extends CommandBase {
   private final RaspberryPiCommunication m_rasp;
   private final Chassis m_chas;
   private double time;
-  public DoBallIntake(BallManagement ball, RaspberryPiCommunication rasp, Chassis ch) {
-    m_ball = ball;
-    m_rasp = rasp;
-    m_chas = ch;
-    addRequirements(m_ball, m_rasp, m_chas);
+  public DoBallIntake(BallManagement ball, RaspberryPiCommunication rasp, Chassis chassis) {
+    this.m_ball = ball;
+    this.m_rasp = rasp;
+    this.m_chas = chassis;
+    addRequirements(this.m_ball, this.m_rasp, this.m_chas);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    time = 0;
-    m_ball.set_ball_intake(1);
+    this.time = 0;
+    this.m_ball.set_ball_intake(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,17 +41,17 @@ public class DoBallIntake extends CommandBase {
   public void execute() {
     //TODO: Insert area threshold for circle
   
-    if (m_rasp.getAreaCircle() > 50 && time == 0) {
-      time = Timer.getFPGATimestamp();
+    if (this.m_rasp.getAreaCircle() > 50 && time == 0) {
+      this.time = Timer.getFPGATimestamp();
     }
     double[] directions = m_rasp.getXYBall();
-    m_chas.drive.arcadeDrive(directions[0], directions[1]);
+    this.m_chas.drive.arcadeDrive(directions[0], directions[1]);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_ball.set_ball_intake(0);
+    this.m_ball.set_ball_intake(0);
   }
 
   // Returns true when the command should end.
@@ -59,6 +59,6 @@ public class DoBallIntake extends CommandBase {
   public boolean isFinished() {
     //TODO: Test if 1 second is too much, test for optimal time
 
-    return time != 0 && Timer.getFPGATimestamp() - time > 1;
+    return this.time != 0 && Timer.getFPGATimestamp() - time > 1;
   }
 }

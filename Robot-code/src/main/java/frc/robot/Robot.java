@@ -44,15 +44,15 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_joystick = new JoystickInterface();
+    this.m_joystick = new JoystickInterface();
     //FrontLeft = 1 FrontRight = 2 BackLeft = 3 BackRight = 4
     //1, 2 are talons
-    m_chassis = new Chassis(1,2,3,4);
-    m_comms = new RaspberryPiCommunication();
-    m_cont = new BallContainerManagement();
-    m_ball = new BallManagement();
-    m_elev = new Elevator();
-    m_navx = new NavX();
+    this.m_chassis = new Chassis(1,2,3,4);
+    this.m_comms = new RaspberryPiCommunication();
+    this.m_cont = new BallContainerManagement();
+    this.m_ball = new BallManagement();
+    this.m_elev = new Elevator();
+    this.m_navx = new NavX();
   }
 
 
@@ -92,11 +92,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
    // m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
-   m_autonomousCommand = new AutoMode(m_cont, m_ball, m_chassis, m_navx);
-   m_autonomousCommand.schedule();
+   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, this.m_navx);
+   this.m_autonomousCommand.schedule();
     //only needed for switcheroo
-    if (m_teleopCommand != null) {
-      m_teleopCommand.cancel();
+    if (this.m_teleopCommand != null) {
+      this.m_teleopCommand.cancel();
     }
   }
 
@@ -114,11 +114,11 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (this.m_autonomousCommand != null) {
+      this.m_autonomousCommand.cancel();
     }
-    m_teleopCommand = new JoystickMotion(m_chassis, m_joystick, m_ball, m_cont, m_elev);
-    m_teleopCommand.schedule();
+    this.m_teleopCommand = new JoystickMotion(this.m_chassis, this.m_joystick, this.m_ball, this.m_cont, this.m_elev);
+    this.m_teleopCommand.schedule();
   }
 
   /**

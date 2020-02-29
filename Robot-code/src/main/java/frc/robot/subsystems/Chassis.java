@@ -23,29 +23,29 @@ public class Chassis extends SubsystemBase {
   public Chassis(int frontLeft,int frontRight,int backLeft,int backRight) {
     //3 4 sag 1 2 sol
     //TODO: PID on chassis
-    right_talon = new WPI_TalonSRX(frontRight);
-    left_talon = new WPI_TalonSRX(frontLeft);
+    this.right_talon = new WPI_TalonSRX(frontRight);
+    this.left_talon = new WPI_TalonSRX(frontLeft);
     //TODO: check if this is the right config
-    right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    drive = new DifferentialDrive(new SpeedControllerGroup(right_talon,new WPI_VictorSPX(backRight)),new SpeedControllerGroup(new SpeedControllerGroup(left_talon ,new WPI_VictorSPX(backLeft))));
-    drive.setMaxOutput(0.7);
+    this.right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    this.left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    this.drive = new DifferentialDrive(new SpeedControllerGroup(this.right_talon,new WPI_VictorSPX(backRight)),new SpeedControllerGroup(new SpeedControllerGroup(this.left_talon ,new WPI_VictorSPX(backLeft))));
+    this.drive.setMaxOutput(0.7);
   }
   @Override
   public void periodic() {
     
-    drive.feed();
+    this.drive.feed();
     // This method will be called once per scheduler run
   }
   
   public int get_right_sensor() {
     //TODO: multiply with constant to convert to meters or something
-    return right_talon.getSelectedSensorPosition();
+    return this.right_talon.getSelectedSensorPosition();
   }
   public int get_left_sensor() {
-    return left_talon.getSelectedSensorPosition();
+    return this.left_talon.getSelectedSensorPosition();
   }
   public double get_forward_distance() {
-    return (left_talon.getSelectedSensorPosition() + right_talon.getSelectedSensorPosition()) / 2.0;
+    return (this.left_talon.getSelectedSensorPosition() + this.right_talon.getSelectedSensorPosition()) / 2.0;
   }
 }

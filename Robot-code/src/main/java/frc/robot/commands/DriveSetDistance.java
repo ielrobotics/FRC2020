@@ -17,15 +17,15 @@ public class DriveSetDistance extends CommandBase {
   private final double distance;
   public DriveSetDistance(Chassis chassis, double dist) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(chassis);
-    m_chassis = chassis;
-    distance = dist;
+    this.m_chassis = chassis;
+    this.distance = dist;
+    addRequirements(this.m_chassis);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_chassis.drive.arcadeDrive(1, 0);
+    this.m_chassis.drive.arcadeDrive(1, 0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,12 +38,12 @@ public class DriveSetDistance extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_chassis.drive.arcadeDrive(0, 0);
+    this.m_chassis.drive.arcadeDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_chassis.get_forward_distance() > distance;
+    return this.m_chassis.get_forward_distance() > distance;
   }
 }

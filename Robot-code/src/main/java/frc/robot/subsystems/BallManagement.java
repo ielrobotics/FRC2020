@@ -15,45 +15,45 @@ public class BallManagement extends SubsystemBase {
    */
   private final VictorSP ball_manipulation_motor;
   public BallManagement() {
-    ball_count = 3;
-    ball_manipulation_motor = new VictorSP(1);
+    this.ball_count = 3;
+    this.ball_manipulation_motor = new VictorSP(1);
   }
 
   @Override
   public void periodic() {
-    ball_manipulation_motor.feed();
+    this.ball_manipulation_motor.feed();
     // This method will be called once per scheduler run
   }
   private int ball_count;
   public int get_ball_count() {
-    return ball_count;
+    return this.ball_count;
   }
   /**
    * 
    * @param value 1 for intake, -1 for outtake, 0 for no take
    */
   public void set_ball_intake(int value) {
-    if (ball_count < 5 && value == 1) {
-      ball_manipulation_motor.set(0.0);
+    if (this.ball_count < 5 && value == 1) {
+      this.ball_manipulation_motor.set(0.0);
       return;
     }
-    ball_manipulation_motor.set(value);
+    this.ball_manipulation_motor.set(value);
   }
   /**
    * Resets ball count.
    */
   public void reset_ball() {
-    ball_count = 0;
+    this.ball_count = 0;
   }
   /**
    * Increments ball count.
    */
   public void increment_ball() {
-    if (ball_count == 5) {
+    if (this.ball_count == 5) {
       System.out.print("WARNING: Too many balls collected!");
       return;
     }
-    ball_count++;
+    this.ball_count++;
     return;
   }
 }
