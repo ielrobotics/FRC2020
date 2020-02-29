@@ -18,6 +18,7 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.RaspberryPiCommunication;
+import frc.robot.subsystems.NavX;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -87,8 +88,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
-    m_autonomousCommand.schedule();
+   // m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
+   m_autonomousCommand = new AutoMode(m_cont, m_ball, m_chassis, m_navx);
+   m_autonomousCommand.schedule();
     //only needed for switcheroo
     if (m_teleopCommand != null) {
       m_teleopCommand.cancel();
@@ -100,7 +102,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    
+
   }
 
   @Override
