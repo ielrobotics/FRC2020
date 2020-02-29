@@ -22,6 +22,7 @@ public class Chassis extends SubsystemBase {
   public final WPI_TalonSRX left_talon;
   public Chassis(int frontLeft,int frontRight,int backLeft,int backRight) {
     //3 4 sag 1 2 sol
+    //TODO: PID on chassis
     right_talon = new WPI_TalonSRX(frontRight);
     left_talon = new WPI_TalonSRX(frontLeft);
     //TODO: check if this is the right config
@@ -34,7 +35,7 @@ public class Chassis extends SubsystemBase {
   public void periodic() {
     
     drive.feed();
-    // This method will be called once per s<p>heduler run
+    // This method will be called once per scheduler run
   }
   
   public int get_right_sensor() {
