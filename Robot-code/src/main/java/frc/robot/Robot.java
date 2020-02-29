@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ImageRecognitionMotion;
+import frc.robot.commands.AutoMode;
 import frc.robot.commands.JoystickMotion;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
@@ -34,6 +34,8 @@ public class Robot extends TimedRobot {
   private BallContainerManagement m_cont;
   private BallManagement m_ball;
   private Elevator m_elev;
+  private NavX m_navx;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -50,6 +52,7 @@ public class Robot extends TimedRobot {
     m_cont = new BallContainerManagement();
     m_ball = new BallManagement();
     m_elev = new Elevator();
+    m_navx = new NavX();
   }
 
 

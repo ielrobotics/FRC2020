@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
@@ -20,13 +19,14 @@ public class AutoMode extends CommandBase{
   /**
    * Creates a new AutoMode.
    */
+  private Chassis m_sub;
   public AutoMode(BallContainerManagement m_cont, BallManagement m_ball, Chassis m_chassis, NavX m_navx)  {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //TODO: Add Auto Mode logic here
     super();
   }
-}
+
 
 
 @Override
