@@ -19,6 +19,7 @@ public class Elevator extends SubsystemBase {
   private VictorSPX elevator_motor;
   public Elevator() {
     this.elevator_motor = new VictorSPX(5);
+    elev_state = elevator_states.ELEVATOR_STOPPED;
   }
 
   @Override
