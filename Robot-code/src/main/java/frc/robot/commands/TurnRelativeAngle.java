@@ -30,7 +30,7 @@ public class TurnRelativeAngle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.command = new TurnAbsoluteAngle(this.m_navx, this.m_chassis, this.target_angle + this.m_navx.ah.getAngle());
+    this.command = new TurnAbsoluteAngle(this.m_navx, this.m_chassis, this.target_angle + this.m_navx.getAngle());
     this.command.initialize();
   }
 

@@ -34,7 +34,7 @@ public class TurnAbsoluteAngle extends CommandBase {
   @Override
   public void execute() {
     //TODO: Test if spin is wrong
-    this.m_chassis.drive.arcadeDrive(0, (this.m_navx.ah.getAngle() < target_angle) ? 1 : -1);
+    this.m_chassis.drive.arcadeDrive(0, (this.m_navx.getAngle() < target_angle) ? 1 : -1);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,6 +47,6 @@ public class TurnAbsoluteAngle extends CommandBase {
   @Override
   public boolean isFinished() {
     //TODO: test threshold value here
-    return Math.abs(m_navx.ah.getAngle() - target_angle) < 1;
+    return Math.abs(m_navx.getAngle() - target_angle) < 1;
   }
 }

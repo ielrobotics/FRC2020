@@ -6,50 +6,39 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.NavX;
+import frc.robot.subsystems.RaspberryPiCommunication;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class AutoMode extends CommandBase{
+public class AutoMode extends SequentialCommandGroup {
   /**
-   * Creates a new AutoMode.
+   * Auto Mode command group.
+   * 
+   * @param m_cont Ball Container subsystem
+   * @param m_ball Ball Manipulator subsystem
+   * @param m_chassis Chassis subsystem
+   * @param m_navx NavX subsystem
+   * @param m_rasp Raspberry Pi subsystem
+   * @param x The distance between the robot's initial position on the alliance line and the edge of the wall closest to the target zone
    */
-  private Chassis m_sub;
-  public AutoMode(BallContainerManagement m_cont, BallManagement m_ball, Chassis m_chassis, NavX m_navx)  {
+  public AutoMode(BallContainerManagement m_cont, BallManagement m_ball, Chassis m_chassis, NavX m_navx, RaspberryPiCommunication m_rasp, double x)  {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    //TODO: Add Auto Mode logic here
-    super();
-  }
+    super(
+      new TurnRelativeAngle(m_navx, m_chassis, Math.asin(305.0 * 305.0 / ((x - 164.4) * (x - 164.4) + 305.0 * 305.0)) * (x < 164.4 ? -1.0 : 1.0)),
+      new DriveSetDistance(m_chassis, Math.sqrt((x - 164.4) * (x - 164.4) + 305.0 * 305.0)),
+      new AlignWithOcta(m_chassis, m_rasp),
+      new DoCompleteBallOuttake(m_ball, m_cont)
 
-
-
-@Override
-  public void initialize() {
-  }
-
-
-  @Override
-  public void execute() {
-    
-    m_sub.drive.arcadeDrive(1, 0.5);
-
-    
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    );
+    //TODO: Finish adding Auto Mode logic here
+    //TODO: I do NOT think the first TurnRelativeAngle is going to work. Actually test this i beg you.
+    //TODO: Test if the AlignWithOcta dealigns the robot too much.
   }
 }

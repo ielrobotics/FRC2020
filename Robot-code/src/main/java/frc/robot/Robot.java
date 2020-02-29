@@ -92,7 +92,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
    // m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
-   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, this.m_navx);
+   //TODO: update x according to robot position on field
+   //x is the distance betweed the robot and the edge of the wall closest to the target zone
+   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, this.m_navx, this.m_comms, 164.4);
    this.m_autonomousCommand.schedule();
     //only needed for switcheroo
     if (this.m_teleopCommand != null) {

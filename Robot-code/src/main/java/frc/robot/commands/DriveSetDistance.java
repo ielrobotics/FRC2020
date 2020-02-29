@@ -25,14 +25,17 @@ public class DriveSetDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.m_chassis.drive.arcadeDrive(1, 0);
+    m_chassis.left_talon.setSelectedSensorPosition(0);
+    m_chassis.right_talon.setSelectedSensorPosition(0);
+    m_chassis.left_pid.setSetpoint(distance);
+    m_chassis.right_pid.setSetpoint(distance);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-
+    m_chassis.left_talon.set(m_chassis.get_left_pid());
+    m_chassis.right_talon.set(m_chassis.get_right_pid());
   }
 
   // Called once the command ends or is interrupted.
@@ -44,6 +47,6 @@ public class DriveSetDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return this.m_chassis.get_forward_distance() > distance;
+    return this.m_chassis.left_pid.atSetpoint() && this.m_chassis.right_pid.atSetpoint();
   }
 }
