@@ -13,6 +13,7 @@ import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
+import frc.robot.subsystems.BallManagement.ball_intake_state;
 import frc.robot.subsystems.Elevator.elevator_states;
 import edu.wpi.first.wpilibj.Joystick;
 public class JoystickMotion extends CommandBase {
@@ -86,11 +87,11 @@ double turboamount;
     }              
     */
     if (this.joystick.getRawButton(2)) {
-      this.m_ball.set_ball_intake(1);
+      this.m_ball.set_ball_intake(ball_intake_state.BALL_INTAKE);
     } else if (this.joystick.getRawButton(1)) {
-      this.m_ball.set_ball_intake(-1);
+      this.m_ball.set_ball_intake(ball_intake_state.BALL_OUTTAKE);
     } else {
-      this.m_ball.set_ball_intake(0);
+      this.m_ball.set_ball_intake(ball_intake_state.BALL_STOP);
     }
     if (this.joystick.getRawButtonPressed(3)) {
       this.m_cont.lift_arm();

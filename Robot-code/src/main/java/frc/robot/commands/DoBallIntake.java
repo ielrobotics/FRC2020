@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.RaspberryPiCommunication;
+import frc.robot.subsystems.BallManagement.ball_intake_state;
 
 public class DoBallIntake extends CommandBase {
   /**
@@ -47,7 +48,7 @@ public class DoBallIntake extends CommandBase {
   @Override
   public void initialize() {
     this.time = 0;
-    this.m_ball.set_ball_intake(1);
+    this.m_ball.set_ball_intake(ball_intake_state.BALL_INTAKE);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -65,7 +66,7 @@ public class DoBallIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.m_ball.set_ball_intake(0);
+    this.m_ball.set_ball_intake(ball_intake_state.BALL_STOP);
   }
 
   // Returns true when the command should end.

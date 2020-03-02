@@ -23,15 +23,22 @@ public class Chassis extends SubsystemBase {
   public final WPI_TalonSRX left_talon;
   public final PIDController left_pid;
   public final PIDController right_pid;
+  /**
+   * Creates a Chassis object.
+   * @param frontLeft The CAN ID of the front left Talon SRX
+   * @param frontRight The CAN ID of the front right Talon SRX
+   * @param backLeft The CAN ID of the back left Victor SPX
+   * @param backRight The CAN ID of the back right Victor SPX
+   */
   public Chassis(int frontLeft,int frontRight,int backLeft,int backRight) {
     //TODO: Add limit switch support
-    //3 4 sag 1 2 sol
     //TODO: PID on chassis
     this.right_talon = new WPI_TalonSRX(frontRight);
     this.left_talon = new WPI_TalonSRX(frontLeft);
     //TODO: get PID values
-    left_pid = new PIDController(0, 0, 0);
-    right_pid = new PIDController(0, 0, 0);
+    //currently temporarily using P=1 I=0 D=0
+    left_pid = new PIDController(1, 0, 0);
+    right_pid = new PIDController(1, 0, 0);
     //TODO: check if this is the right config
     this.right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     this.left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);

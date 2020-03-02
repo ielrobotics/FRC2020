@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
+import frc.robot.subsystems.BallManagement.ball_intake_state;
 
 public class DoCompleteBallOuttake extends CommandBase {
   private double time;
@@ -31,7 +32,7 @@ public class DoCompleteBallOuttake extends CommandBase {
   public void initialize() {
     this.time = Timer.getFPGATimestamp();
     this.m_c.lift_arm();
-    this.m_b.set_ball_intake(-1);
+    this.m_b.set_ball_intake(ball_intake_state.BALL_OUTTAKE);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,7 +44,7 @@ public class DoCompleteBallOuttake extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.m_b.reset_ball();
-    this.m_b.set_ball_intake(0);
+    this.m_b.set_ball_intake(ball_intake_state.BALL_STOP);
     this.m_c.release_arm();
   }
 

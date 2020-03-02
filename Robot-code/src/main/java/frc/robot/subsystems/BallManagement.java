@@ -18,7 +18,11 @@ public class BallManagement extends SubsystemBase {
     this.ball_count = 3;
     this.ball_manipulation_motor = new VictorSP(1);
   }
-
+  public enum ball_intake_state {
+    BALL_INTAKE,
+    BALL_OUTTAKE,
+    BALL_STOP
+  }
   @Override
   public void periodic() {
     this.ball_manipulation_motor.feed();
@@ -29,20 +33,22 @@ public class BallManagement extends SubsystemBase {
     return this.ball_count;
   }
   /**
-   * 
-   * @param value 1 for intake, -1 for outtake, 0 for no take
+   * Sets the ball intake motor state.
+   * @param value The state to set the ball intake motor to.
    */
-  public void set_ball_intake(int value) {
-    if (this.ball_count < 5 && value == 1) {
-      this.ball_manipulation_motor.set(0.0);
-      return;
+  public void set_ball_intake(ball_intake_state value) {
+    //TODO: test if these are backwards
+    switch (value) {
+      case BALL_INTAKE:
+        ball_manipulation_motor.set(1.0);
+        break;
+      case BALL_OUTTAKE:
+        ball_manipulation_motor.set(-1.0);
+        break;
+      case BALL_STOP:
+        ball_manipulation_motor.set(0.0);
+        break;
     }
-    else if (this.ball_count <= 5 && this.ball_count != 0 && value == -1)
-    {
-      this.ball_manipulation_motor.set(-1);
-      return;
-    }
-    this.ball_manipulation_motor.set(value);
   }
   /**
    * Resets ball count.
