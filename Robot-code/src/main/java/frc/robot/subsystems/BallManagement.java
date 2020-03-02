@@ -37,7 +37,7 @@ public class BallManagement extends SubsystemBase {
       this.ball_manipulation_motor.set(0.0);
       return;
     }
-    else if (this.ball_count <= 5 && value == -1)
+    else if (this.ball_count <= 5 && this.ball_count != 0 && value == -1)
     {
       this.ball_manipulation_motor.set(-1);
       return;

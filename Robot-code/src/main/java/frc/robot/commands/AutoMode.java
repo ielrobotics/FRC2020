@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallContainerManagement;
 import frc.robot.subsystems.BallManagement;
@@ -28,14 +29,13 @@ public class AutoMode extends CommandBase{
    * @param m_chassis for movement of robot
    * @param m_navx for positioning
    */
+  private Encoder rightEncoder,leftEncoder;
   public AutoMode(BallContainerManagement m_cont, BallManagement m_ball, Chassis m_chassis, NavX m_navx)  {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //TODO: Add Auto Mode logic here
     super();
   }
-
-
 
 @Override
   public void initialize() {
