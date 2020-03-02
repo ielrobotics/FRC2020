@@ -31,7 +31,7 @@ public class AutoMode extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
-      new AutoModeBase(m_cont, m_ball, m_chassis, m_navx, m_rasp, x),
+      new AutoModeBase(m_cont, m_ball, m_chassis, m_navx, m_rasp, x)
       
     );
   }
