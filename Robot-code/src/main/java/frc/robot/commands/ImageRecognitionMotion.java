@@ -39,7 +39,7 @@ public class ImageRecognitionMotion extends CommandBase {
   @Override
   public void execute() {
     if (this.m_ball.get_ball_count() == 5) {
-      double ret[] = this.m_comms.getXYHex();
+      double ret[] = this.m_comms.getXYOcta();
       if (ret.length == 3) {
         this.m_chassis.drive.arcadeDrive(ret[0], ret[1]);
       } else {
