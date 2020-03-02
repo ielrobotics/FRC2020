@@ -32,7 +32,7 @@ public class AutoMode extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new AutoModeBase(m_cont, m_ball, m_chassis, m_navx, m_rasp, x)
-
+      
     );
     //TODO: Finish adding Auto Mode logic here
   }
