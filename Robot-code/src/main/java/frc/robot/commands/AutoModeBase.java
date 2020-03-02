@@ -37,7 +37,7 @@ public class AutoModeBase extends SequentialCommandGroup {
       new AlignWithOcta(m_chassis, m_rasp),
       new DoCompleteBallOuttake(m_ball, m_cont)
     );
-    //TODO: Finish adding Auto Mode logic here
+    
     //TODO: I do NOT think the first TurnRelativeAngle is going to work. Actually test this i beg you.
     //TODO: Test if the AlignWithOcta dealigns the robot too much.
   }
