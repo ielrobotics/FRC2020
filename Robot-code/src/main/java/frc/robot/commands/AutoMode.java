@@ -18,8 +18,16 @@ import frc.robot.subsystems.NavX;
 public class AutoMode extends CommandBase{
   /**
    * Creates a new AutoMode.
+   * There is an Automode command
    */
   private Chassis m_sub;
+  /**
+   * 
+   * @param m_cont for ball status
+   * @param m_ball for ball status
+   * @param m_chassis for movement of robot
+   * @param m_navx for positioning
+   */
   public AutoMode(BallContainerManagement m_cont, BallManagement m_ball, Chassis m_chassis, NavX m_navx)  {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
@@ -36,7 +44,7 @@ public class AutoMode extends CommandBase{
 
   @Override
   public void execute() {
-    
+    // Driving robot
     m_sub.drive.arcadeDrive(1, 0.5);
 
     

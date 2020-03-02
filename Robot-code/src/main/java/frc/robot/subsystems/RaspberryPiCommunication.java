@@ -35,7 +35,7 @@ public class RaspberryPiCommunication extends SubsystemBase {
     double[] ret = {((val != -999999999.0) ? 1.0 : 0.0) * val, (val != -999999999.0) ? 1.0 : 0.0};
     return ret;
   }
-  public double[] getXYHex() {
+  public double[] getXYOcta() {
     this.pipeline.setDouble(2.0);
     double val = yaw.getDouble(-999999999.0);
     double[] ret = {((val != -999999999.0) ? 1.0 : 0.0) * val, (val != -999999999.0) ? 1.0 : 0.0};
@@ -45,7 +45,7 @@ public class RaspberryPiCommunication extends SubsystemBase {
     this.pipeline.setDouble(1.0);
     return area.getDouble(-1.0);
   }
-  public double getAreaHex() {
+  public double getAreaOcta() {
     this.pipeline.setDouble(2.0);
     return area.getDouble(-1.0);
   }

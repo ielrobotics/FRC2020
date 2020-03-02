@@ -17,10 +17,24 @@ public class DoBallIntake extends CommandBase {
   /**
    * Creates a new DoBallIntake.
    */
+  // ##
+  // ##
+  // ##
+  // ##
+  // ##
+  //       Talk about timing
+  // ##
+  // ##
   private final BallManagement m_ball;
   private final RaspberryPiCommunication m_rasp;
   private final Chassis m_chas;
   private double time;
+  /**
+   * 
+   * @param ball for ball status
+   * @param rasp for Image Recognation
+   * @param chassis for movement of robot
+   */
   public DoBallIntake(BallManagement ball, RaspberryPiCommunication rasp, Chassis chassis) {
     this.m_ball = ball;
     this.m_rasp = rasp;
@@ -44,7 +58,7 @@ public class DoBallIntake extends CommandBase {
     if (this.m_rasp.getAreaCircle() > 50 && time == 0) {
       this.time = Timer.getFPGATimestamp();
     }
-    double[] directions = m_rasp.getXYBall();
+    double[] directions = this.m_rasp.getXYBall();
     this.m_chas.drive.arcadeDrive(directions[0], directions[1]);
   }
 

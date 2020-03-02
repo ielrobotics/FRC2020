@@ -14,16 +14,21 @@ import frc.robot.subsystems.RaspberryPiCommunication;
 public class AlignWithOcta extends CommandBase {
 
   /**
-   * Creates a new AlignWithHex.
+   * Creates a new AlignWithOcta.
    */
   /* 
 
-    This subsystem is for detecting octagon under goal
-
+    This command is for detecting octagon under goal
+    Using for autonomus and helper
   */
   
   private final RaspberryPiCommunication m_rasp;
   private final Chassis m_chas;
+  /**
+   * 
+   * @param chassis for movement
+   * @param rasp for Image Recognation
+   */
   public AlignWithOcta(Chassis chassis, RaspberryPiCommunication rasp) {
     this.m_chas = chassis;
     this.m_rasp = rasp;
@@ -40,8 +45,8 @@ public class AlignWithOcta extends CommandBase {
   @Override
   public void execute() {
     //TODO: Check shape of hex to dock properly by determining the alignment of the hex
-
-    double[] directions = m_rasp.getXYHex();
+    //Here comes coordinat of octagon
+    double[] directions = m_rasp.getXYOcta();
     this.m_chas.drive.arcadeDrive(directions[0], directions[1]);
   }
 
@@ -56,6 +61,6 @@ public class AlignWithOcta extends CommandBase {
   public boolean isFinished() {
     //TODO: Add magic value for hex area threshold
     //TODO: Check the shape of the detected hex to determine if fully docked
-    return m_rasp.getAreaHex() > 50;
+    return m_rasp.getAreaOcta() > 50;
   }
 }
