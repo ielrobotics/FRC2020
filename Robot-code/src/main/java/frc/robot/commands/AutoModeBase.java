@@ -29,6 +29,7 @@ public class AutoModeBase extends SequentialCommandGroup {
   public AutoModeBase(final BallContainerManagement m_cont, final BallManagement m_ball, final Chassis m_chassis, final RaspberryPiCommunication m_rasp, final double x) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
+    //TODO: maybe refactor this into a path as well to take advantage of Ramsete logic
     super(
       new TurnRelativeAngle(m_chassis, Math.asin(305.0 * 305.0 / ((x - 164.4) * (x - 164.4) + 305.0 * 305.0)) * (x < 164.4 ? -1.0 : 1.0)),
       new DriveSetDistance(m_chassis, Math.sqrt((x - 164.4) * (x - 164.4) + 305.0 * 305.0)),

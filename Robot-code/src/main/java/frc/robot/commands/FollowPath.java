@@ -42,10 +42,6 @@ public class FollowPath extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  
-    //TODO: Robot Characterization
-    //TODO: Do path generation on the robot
-    //TODO: Maybe just dont do this, do manual stuff instead?
     File f = new File(Filesystem.getDeployDirectory().getAbsolutePath() + "/paths/" + path_name + ".wpilib.json");
     FileReader fr;
     String s = new String();
@@ -72,7 +68,6 @@ public class FollowPath extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //TODO: Figure out how to do trajectory stuff
     com.execute();
     
   }

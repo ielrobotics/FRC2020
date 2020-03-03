@@ -45,7 +45,6 @@ public class Chassis extends SubsystemBase {
    */
   public Chassis(int frontLeft,int frontRight,int backLeft,int backRight) {
     //TODO: Add limit switch support
-    //TODO: PID on chassis
     this.right_talon = new WPI_TalonSRX(frontRight);
     this.left_talon = new WPI_TalonSRX(frontLeft);
     this.ah = new AHRS();
@@ -54,7 +53,6 @@ public class Chassis extends SubsystemBase {
     //currently temporarily using P=1 I=0 D=0
     left_pid = new PIDController(1, 0, 0);
     right_pid = new PIDController(1, 0, 0);
-    //TODO: check if this is the right config
     this.right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     this.left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     right_controller_group = new SpeedControllerGroup(this.right_talon, new WPI_VictorSPX(backRight));
@@ -80,11 +78,8 @@ public class Chassis extends SubsystemBase {
     if (!ah.isCalibrating()) {
       odometry.update(Rotation2d.fromDegrees(getHeading()), get_left_sensor(), get_right_sensor());
     }
-
   }
-  
   public double get_right_sensor() {
-    //TODO: multiply with constant to convert to meters or something
     return this.right_talon.getSelectedSensorPosition() * Constants.encoderToMeters;
   }
   public double get_left_sensor() {
