@@ -59,7 +59,7 @@ public class Chassis extends SubsystemBase {
     left_controller_group = new SpeedControllerGroup(this.left_talon, new WPI_VictorSPX(backLeft));
     this.drive = new DifferentialDrive(right_controller_group,left_controller_group);
     this.drive.setMaxOutput(0.7);
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), new Pose2d());
     kinematics = new DifferentialDriveKinematics(Constants.ktrackWidthMeters);
   }
 
