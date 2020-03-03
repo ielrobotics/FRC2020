@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.RaspberryPiCommunication;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,18 +25,16 @@ public class AutoModeBase extends SequentialCommandGroup {
    * @param m_rasp Raspberry Pi subsystem
    * @param x The distance between the robot's initial position on the alliance line and the edge of the wall closest to the target zone
    */
-  public AutoModeBase(final Arm m_cont, final Intake m_ball, final Chassis m_chassis, final RaspberryPiCommunication m_rasp, final double x) {
+  public AutoModeBase(final Arm m_cont, final Intake m_ball, final Chassis m_chassis, final double x) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //TODO: maybe refactor this into a path as well to take advantage of Ramsete logic
     super(
       new TurnRelativeAngle(m_chassis, Math.asin(305.0 * 305.0 / ((x - 164.4) * (x - 164.4) + 305.0 * 305.0)) * (x < 164.4 ? -1.0 : 1.0)),
       new DriveSetDistance(m_chassis, Math.sqrt((x - 164.4) * (x - 164.4) + 305.0 * 305.0)),
-      new AlignWithOcta(m_chassis, m_rasp),
       new DoCompleteBallOuttake(m_ball, m_cont)
     );
     
     //TODO: I do NOT think the first TurnRelativeAngle is going to work. Actually test this i beg you.
-    //TODO: Test if the AlignWithOcta dealigns the robot too much.
   }
 }

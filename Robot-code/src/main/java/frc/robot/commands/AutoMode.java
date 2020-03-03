@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.RaspberryPiCommunication;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,11 +25,11 @@ public class AutoMode extends SequentialCommandGroup {
    * @param m_rasp Raspberry Pi subsystem
    * @param x The distance between the robot's initial position on the alliance line and the edge of the wall closest to the target zone
    */
-  public AutoMode(Arm m_cont, Intake m_ball, Chassis m_chassis, RaspberryPiCommunication m_rasp, double x) {
+  public AutoMode(Arm m_cont, Intake m_ball, Chassis m_chassis, double x) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
-      new AutoModeBase(m_cont, m_ball, m_chassis, m_rasp, x),
+      new AutoModeBase(m_cont, m_ball, m_chassis, x),
       new FollowPath(m_chassis, "Mid_Blue")
     );
     //TODO: Finish adding Auto Mode logic here

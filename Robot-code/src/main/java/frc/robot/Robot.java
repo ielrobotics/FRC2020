@@ -16,7 +16,6 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
-import frc.robot.subsystems.RaspberryPiCommunication;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -28,7 +27,6 @@ public class Robot extends TimedRobot {
   private Command m_teleopCommand;
   private JoystickInterface m_joystick;
   private Chassis m_chassis;
-  private RaspberryPiCommunication m_comms;
   private Arm m_cont;
   private Intake m_ball;
   private Elevator m_elev;
@@ -44,7 +42,6 @@ public class Robot extends TimedRobot {
     //FrontLeft = 1 FrontRight = 2 BackLeft = 3 BackRight = 4
     //1, 2 are talons
     this.m_chassis = new Chassis();
-    this.m_comms = new RaspberryPiCommunication();
     this.m_cont = new Arm();
     this.m_ball = new Intake();
     this.m_elev = new Elevator();
@@ -89,7 +86,7 @@ public class Robot extends TimedRobot {
    // m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
    //TODO: update x according to robot position on field
    //x is the distance betweed the robot and the edge of the wall closest to the target zone
-   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, this.m_comms, 164.4);
+   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, 164.4);
    this.m_autonomousCommand.schedule();
     //only needed for switcheroo
     if (this.m_teleopCommand != null) {
