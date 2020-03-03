@@ -24,7 +24,7 @@ public class BallContainerManagement extends PIDSubsystem {
     super(
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
-      this.manipulator_analog = new AnalogInput(4);
+      this.manipulator_analog = new AnalogInput(0);
       this.ball_motor = new WPI_VictorSPX(1);
   }
 

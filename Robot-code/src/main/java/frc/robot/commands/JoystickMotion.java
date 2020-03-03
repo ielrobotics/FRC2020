@@ -42,12 +42,8 @@ double turboamount;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.print("test print\n");
-    System.out.print("Encoder outputs:\nLeft: ");
-    System.out.print(this.m_sub.get_left_sensor());
-    System.out.print("\nRight: ");
-    System.out.print(this.m_sub.get_right_sensor());
-    System.out.print("\n");
+    System.out.print("Analog output: ");
+    System.out.println(m_cont.getMeasurement());
     //joystick turbo key
     //Turbo key
     if(this.joystick.getRawButton(9)){
