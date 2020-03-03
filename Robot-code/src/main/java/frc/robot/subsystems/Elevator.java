@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,9 +17,9 @@ public class Elevator extends SubsystemBase {
   /**
    * Creates a new Elevator.
    */
-  private VictorSPX elevator_motor;
+  private VictorSPX hook_motor;
   public Elevator() {
-    this.elevator_motor = new VictorSPX(5);
+    this.hook_motor = new WPI_VictorSPX(3);
     elev_state = elevator_states.ELEVATOR_STOPPED;
   }
 
@@ -27,13 +28,13 @@ public class Elevator extends SubsystemBase {
     //TODO: Check if motor outputs need to be backwards
     switch (this.elev_state) {
       case ELEVATOR_STOPPED:
-        this.elevator_motor.set(ControlMode.PercentOutput, 0);
+        this.hook_motor.set(ControlMode.PercentOutput, 0);
       break;
       case ELEVATOR_DE_ESCALATE:
-        this.elevator_motor.set(ControlMode.PercentOutput, -1);
+        this.hook_motor.set(ControlMode.PercentOutput, -1);
       break;
       case ELEVATOR_ESCALATE:
-        this.elevator_motor.set(ControlMode.PercentOutput, 1);
+        this.hook_motor.set(ControlMode.PercentOutput, 1);
       break;
     }
     // This method will be called once per scheduler run

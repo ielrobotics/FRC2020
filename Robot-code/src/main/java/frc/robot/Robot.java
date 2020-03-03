@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
     this.m_joystick = new JoystickInterface();
     //FrontLeft = 1 FrontRight = 2 BackLeft = 3 BackRight = 4
     //1, 2 are talons
-    this.m_chassis = new Chassis(1,2,3,4);
+    this.m_chassis = new Chassis(2,7,6,8);
     this.m_comms = new RaspberryPiCommunication();
     this.m_cont = new BallContainerManagement();
     this.m_ball = new BallManagement();

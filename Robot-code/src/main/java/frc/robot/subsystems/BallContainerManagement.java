@@ -9,13 +9,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.VictorSP;
 public class BallContainerManagement extends PIDSubsystem {
   /**
    * Creates a new BallContainerManagement.
    */
-  private final VictorSP ball_motor;
+  private final WPI_VictorSPX ball_motor;
   private final AnalogInput manipulator_analog;
   public BallContainerManagement() {
     //TODO: Measure P, I and D
@@ -23,7 +25,7 @@ public class BallContainerManagement extends PIDSubsystem {
         // The PIDController used by the subsystem
         new PIDController(0, 0, 0));
       this.manipulator_analog = new AnalogInput(4);
-      this.ball_motor = new VictorSP(2);
+      this.ball_motor = new WPI_VictorSPX(1);
   }
 
   @Override
