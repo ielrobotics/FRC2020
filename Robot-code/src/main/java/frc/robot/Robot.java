@@ -18,7 +18,6 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
 import frc.robot.subsystems.RaspberryPiCommunication;
-import frc.robot.subsystems.NavX;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -34,7 +33,6 @@ public class Robot extends TimedRobot {
   private BallContainerManagement m_cont;
   private BallManagement m_ball;
   private Elevator m_elev;
-  private NavX m_navx;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -52,7 +50,7 @@ public class Robot extends TimedRobot {
     this.m_cont = new BallContainerManagement();
     this.m_ball = new BallManagement();
     this.m_elev = new Elevator();
-    this.m_navx = new NavX();
+    
   }
 
 
@@ -94,7 +92,7 @@ public class Robot extends TimedRobot {
    // m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
    //TODO: update x according to robot position on field
    //x is the distance betweed the robot and the edge of the wall closest to the target zone
-   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, this.m_navx, this.m_comms, 164.4);
+   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, this.m_comms, 164.4);
    this.m_autonomousCommand.schedule();
     //only needed for switcheroo
     if (this.m_teleopCommand != null) {

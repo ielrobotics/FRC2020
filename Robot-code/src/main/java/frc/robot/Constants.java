@@ -19,4 +19,13 @@ public final class Constants {
     //should suffice
     //if accuracy problems occur, consider adding more digits
     public static final double PI = Math.PI;
+    //TODO: Put FRC Characterization values here
+    public static final double kRamseteB = 0;
+    public static final double kRamseteZeta = 0;
+    public static final double ksVolts = 0;
+    public static final double kvVoltSecondsPerMeter = 0;
+    public static final double kaVoltSecondsSquaredPerMeter = 0;
+    public static final double ktrackWidthMeters = 0;
+    //TODO: Test if accurate
+    public static final double encoderToMeters = 0.1524;
 }

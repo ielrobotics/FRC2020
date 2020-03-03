@@ -9,17 +9,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.NavX;
 public class TurnAbsoluteAngle extends CommandBase {
   /**
    * Creates a new TurnAbsoluteAngle.
    */
-  private final NavX m_navx;
   private final Chassis m_chassis;
   private final double target_angle;
-  public TurnAbsoluteAngle(NavX navx, Chassis chassis, double angle) {
-    addRequirements(navx, chassis);
-    this.m_navx = navx;
+  public TurnAbsoluteAngle(Chassis chassis, double angle) {
+    addRequirements(chassis);
     this.m_chassis = chassis;
     this.target_angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,7 +31,7 @@ public class TurnAbsoluteAngle extends CommandBase {
   @Override
   public void execute() {
     //TODO: Test if spin is wrong
-    this.m_chassis.drive.arcadeDrive(0, (this.m_navx.getAngle() < target_angle) ? 1 : -1);
+    this.m_chassis.drive.arcadeDrive(0, (this.m_chassis.getHeading() < target_angle) ? 1 : -1);
   }
 
   // Called once the command ends or is interrupted.
@@ -47,6 +44,6 @@ public class TurnAbsoluteAngle extends CommandBase {
   @Override
   public boolean isFinished() {
     //TODO: test threshold value here
-    return Math.abs(m_navx.getAngle() - target_angle) < 1;
+    return Math.abs(m_chassis.getHeading() - target_angle) < 1;
   }
 }
