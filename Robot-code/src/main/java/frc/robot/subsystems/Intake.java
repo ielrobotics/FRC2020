@@ -6,16 +6,18 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj.VictorSP;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
   /**
    * Creates a new BallManagement.
    */
-  private final VictorSP intake_motor;
+  private final WPI_VictorSPX intake_motor;
   public Intake() {
-    this.intake_motor = new VictorSP(1);
+    this.intake_motor = new WPI_VictorSPX(1);
   }
   public enum ball_intake_state {
     BALL_INTAKE,

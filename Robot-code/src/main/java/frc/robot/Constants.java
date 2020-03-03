@@ -41,11 +41,11 @@ public final class Constants {
         public static final int PORT_Chassis_BackRight = 8;
         public static final int PORT_Elevator_LiftMotorOne = 3;
         public static final int PORT_Elevator_LiftMotorTwo = 4;
+        public static final int PORT_Intake_Motor = 1;
         //Analog ports
         public static final int PORT_Arm_Potentiometer = 0;
         //PWM Victor SP
-        public static final int PORT_Arm_Motor = 1;
-        public static final int PORT_Intake_Motor = 9;
+        public static final int PORT_Arm_Motor = 9;
     }
     public final class OIConstants {
         public final class Driver {
