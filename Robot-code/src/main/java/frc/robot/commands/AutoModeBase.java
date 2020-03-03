@@ -21,8 +21,6 @@ public class AutoModeBase extends SequentialCommandGroup {
    * @param m_cont Ball Container subsystem
    * @param m_ball Ball Manipulator subsystem
    * @param m_chassis Chassis subsystem
-   * @param m_navx NavX subsystem
-   * @param m_rasp Raspberry Pi subsystem
    * @param x The distance between the robot's initial position on the alliance line and the edge of the wall closest to the target zone
    */
   public AutoModeBase(final Arm m_cont, final Intake m_ball, final Chassis m_chassis, final double x) {

@@ -21,8 +21,6 @@ public class AutoMode extends SequentialCommandGroup {
    * @param m_cont Ball Container subsystem
    * @param m_ball Ball Manipulator subsystem
    * @param m_chassis Chassis subsystem
-   * @param m_navx NavX subsystem
-   * @param m_rasp Raspberry Pi subsystem
    * @param x The distance between the robot's initial position on the alliance line and the edge of the wall closest to the target zone
    */
   public AutoMode(Arm m_cont, Intake m_ball, Chassis m_chassis, double x) {
