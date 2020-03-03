@@ -9,10 +9,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallManagement;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.RaspberryPiCommunication;
-import frc.robot.subsystems.BallManagement.ball_intake_state;
+import frc.robot.subsystems.Intake.ball_intake_state;
 
 public class DoBallIntake extends CommandBase {
   /**
@@ -26,7 +26,7 @@ public class DoBallIntake extends CommandBase {
   //       Talk about timing
   // ##
   // ##
-  private final BallManagement m_ball;
+  private final Intake m_ball;
   private final RaspberryPiCommunication m_rasp;
   private final Chassis m_chas;
   private double time;
@@ -36,7 +36,7 @@ public class DoBallIntake extends CommandBase {
    * @param rasp for Image Recognation
    * @param chassis for movement of robot
    */
-  public DoBallIntake(BallManagement ball, RaspberryPiCommunication rasp, Chassis chassis) {
+  public DoBallIntake(Intake ball, RaspberryPiCommunication rasp, Chassis chassis) {
     this.m_ball = ball;
     this.m_rasp = rasp;
     this.m_chas = chassis;

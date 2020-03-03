@@ -7,8 +7,8 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.BallContainerManagement;
-import frc.robot.subsystems.BallManagement;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.RaspberryPiCommunication;
 
@@ -26,7 +26,7 @@ public class AutoModeBase extends SequentialCommandGroup {
    * @param m_rasp Raspberry Pi subsystem
    * @param x The distance between the robot's initial position on the alliance line and the edge of the wall closest to the target zone
    */
-  public AutoModeBase(final BallContainerManagement m_cont, final BallManagement m_ball, final Chassis m_chassis, final RaspberryPiCommunication m_rasp, final double x) {
+  public AutoModeBase(final Arm m_cont, final Intake m_ball, final Chassis m_chassis, final RaspberryPiCommunication m_rasp, final double x) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //TODO: maybe refactor this into a path as well to take advantage of Ramsete logic

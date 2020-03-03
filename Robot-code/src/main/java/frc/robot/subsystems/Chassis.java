@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-
+import frc.robot.Constants.RobotProperties;
+import frc.robot.Constants.Ports;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -27,14 +27,16 @@ public class Chassis extends SubsystemBase {
    * Creates a new Chassis.
    */
   public final DifferentialDrive drive;
-  public final WPI_TalonSRX right_talon;
-  public final WPI_TalonSRX left_talon;
+  public final WPI_TalonSRX front_right_talon;
+  public final WPI_TalonSRX front_left_talon;
   public final PIDController left_pid;
   public final PIDController right_pid;
   public final DifferentialDriveKinematics kinematics;
   private final SpeedControllerGroup left_controller_group;
   private final SpeedControllerGroup right_controller_group;
   private final DifferentialDriveOdometry odometry;
+  private final WPI_VictorSPX back_left_victor;
+  private final WPI_VictorSPX back_right_victor;
   private final AHRS ah;
   /**
    * Creates a Chassis object.
@@ -43,24 +45,30 @@ public class Chassis extends SubsystemBase {
    * @param backLeft The CAN ID of the back left Victor SPX
    * @param backRight The CAN ID of the back right Victor SPX
    */
-  public Chassis(int frontLeft,int frontRight,int backLeft,int backRight) {
-    //TODO: Add limit switch support
-    this.right_talon = new WPI_TalonSRX(frontRight);
-    this.left_talon = new WPI_TalonSRX(frontLeft);
+  public Chassis() {
+    //Initializes Talon SRXes
+    this.front_right_talon = new WPI_TalonSRX(Ports.PORT_Chassis_FrontRight);
+    this.front_left_talon = new WPI_TalonSRX(Ports.PORT_Chassis_FrontLeft);
+    this.back_left_victor = new WPI_VictorSPX(Ports.PORT_Chassis_BackLeft);
+    this.back_right_victor = new WPI_VictorSPX(Ports.PORT_Chassis_BackRight);
     this.ah = new AHRS();
     ah.zeroYaw();
+
     //TODO: get PID values
     //currently temporarily using P=1 I=0 D=0
     left_pid = new PIDController(1, 0, 0);
     right_pid = new PIDController(1, 0, 0);
-    this.right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    this.left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-    right_controller_group = new SpeedControllerGroup(this.right_talon, new WPI_VictorSPX(backRight));
-    left_controller_group = new SpeedControllerGroup(this.left_talon, new WPI_VictorSPX(backLeft));
+    this.front_right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    this.front_left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+    right_controller_group = new SpeedControllerGroup(this.front_right_talon, this.back_right_victor);
+    left_controller_group = new SpeedControllerGroup(this.front_left_talon, this.back_left_victor);
+
     this.drive = new DifferentialDrive(right_controller_group,left_controller_group);
     this.drive.setMaxOutput(0.7);
+
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), new Pose2d());
-    kinematics = new DifferentialDriveKinematics(Constants.ktrackWidthMeters);
+    kinematics = new DifferentialDriveKinematics(RobotProperties.K_trackWidthMeters);
   }
 
   public double get_right_pid() {
@@ -80,13 +88,10 @@ public class Chassis extends SubsystemBase {
     }
   }
   public double get_right_sensor() {
-    return this.right_talon.getSelectedSensorPosition() * Constants.encoderToMeters;
+    return this.front_right_talon.getSelectedSensorPosition() * RobotProperties.K_encoderToMeters;
   }
   public double get_left_sensor() {
-    return this.left_talon.getSelectedSensorPosition() * Constants.encoderToMeters;
-  }
-  public double get_forward_distance() {
-    return (this.left_talon.getSelectedSensorPosition() + this.right_talon.getSelectedSensorPosition()) / 2.0;
+    return this.front_left_talon.getSelectedSensorPosition() * RobotProperties.K_encoderToMeters;
   }
   private double getAngle() {
     return this.ah.getAngle();
@@ -98,7 +103,7 @@ public class Chassis extends SubsystemBase {
     return odometry.getPoseMeters();
   }
   public DifferentialDriveWheelSpeeds getSpeeds() {
-    return new DifferentialDriveWheelSpeeds(left_talon.getSelectedSensorVelocity() * Constants.encoderToMeters, right_talon.getSelectedSensorVelocity() * Constants.encoderToMeters);
+    return new DifferentialDriveWheelSpeeds(front_left_talon.getSelectedSensorVelocity() * RobotProperties.K_encoderToMeters, front_right_talon.getSelectedSensorVelocity() * RobotProperties.K_encoderToMeters);
   }
   public void tankDriveVolts(double a, double b) {
     left_controller_group.setVoltage(a);

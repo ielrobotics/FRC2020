@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
-import frc.robot.Constants;
+import frc.robot.Constants.RobotProperties;
 import frc.robot.subsystems.Chassis;
 
 public class FollowPath extends CommandBase {
@@ -61,7 +61,7 @@ public class FollowPath extends CommandBase {
       e.printStackTrace();
     }
     //TODO: Trajectory may be wrong, test trajectory
-    com = new RamseteCommand(traj, m_chassis::getPose, new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta), new SimpleMotorFeedforward(Constants.ksVolts, Constants.kvVoltSecondsPerMeter, Constants.kaVoltSecondsSquaredPerMeter), m_chassis.kinematics, m_chassis::getSpeeds, m_chassis.left_pid, m_chassis.right_pid, m_chassis::tankDriveVolts, m_chassis);
+    com = new RamseteCommand(traj, m_chassis::getPose, new RamseteController(RobotProperties.K_RamseteB, RobotProperties.K_RamseteZeta), new SimpleMotorFeedforward(RobotProperties.K_sVolts, RobotProperties.K_vVoltSecondsPerMeter, RobotProperties.K_aVoltSecondsSquaredPerMeter), m_chassis.kinematics, m_chassis::getSpeeds, m_chassis.left_pid, m_chassis.right_pid, m_chassis::tankDriveVolts, m_chassis);
     com.initialize();
   }
 

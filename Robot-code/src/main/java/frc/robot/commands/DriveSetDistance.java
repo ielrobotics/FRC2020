@@ -15,6 +15,7 @@ public class DriveSetDistance extends CommandBase {
    */
   private final Chassis m_chassis;
   private final double distance;
+  
   public DriveSetDistance(Chassis chassis, double dist) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_chassis = chassis;
@@ -25,8 +26,8 @@ public class DriveSetDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_chassis.left_talon.setSelectedSensorPosition(0);
-    m_chassis.right_talon.setSelectedSensorPosition(0);
+    m_chassis.front_left_talon.setSelectedSensorPosition(0);
+    m_chassis.front_right_talon.setSelectedSensorPosition(0);
     m_chassis.left_pid.setSetpoint(distance);
     m_chassis.right_pid.setSetpoint(distance);
   }
@@ -34,8 +35,8 @@ public class DriveSetDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_chassis.left_talon.set(m_chassis.get_left_pid());
-    m_chassis.right_talon.set(m_chassis.get_right_pid());
+    m_chassis.front_left_talon.set(m_chassis.get_left_pid());
+    m_chassis.front_right_talon.set(m_chassis.get_right_pid());
   }
 
   // Called once the command ends or is interrupted.

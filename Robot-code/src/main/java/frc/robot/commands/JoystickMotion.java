@@ -8,30 +8,31 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallContainerManagement;
-import frc.robot.subsystems.BallManagement;
+import frc.robot.Constants.OIConstants.Controller;
+import frc.robot.Constants.OIConstants.Driver;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
-import frc.robot.subsystems.BallManagement.ball_intake_state;
+import frc.robot.subsystems.Intake.ball_intake_state;
 import frc.robot.subsystems.Elevator.elevator_states;
-import edu.wpi.first.wpilibj.Joystick;
 public class JoystickMotion extends CommandBase {
   /**
    * Creates a new JoystickMotion.
    */
   private final Chassis m_sub;
-  private final Joystick joystick;
-  private final BallManagement m_ball;
-  private final BallContainerManagement m_cont;
+  private final JoystickInterface m_joystick;
+  private final Intake m_ball;
+  private final Arm m_cont;
   private final Elevator m_elev;
-  public JoystickMotion(Chassis m_chassis, JoystickInterface m_joystick, BallManagement ball, BallContainerManagement cont, Elevator elev) {
+  public JoystickMotion(Chassis m_chassis, JoystickInterface joystick, Intake ball, Arm cont, Elevator elev) {
     this.m_sub = m_chassis;
     this.m_cont = cont;
     this.m_ball = ball;
     this.m_elev = elev;
-    addRequirements(this.m_sub, m_joystick, this.m_cont, this.m_ball, this.m_elev);
-    this.joystick = m_joystick.joystick;
+    this.m_joystick = joystick;
+    addRequirements(this.m_sub, this.m_joystick, this.m_cont, this.m_ball, this.m_elev);
   }
 
   // Called when the command is initially scheduled.
@@ -46,13 +47,10 @@ double turboamount;
     System.out.println(m_cont.getMeasurement());
     //joystick turbo key
     //Turbo key
-    if(this.joystick.getRawButton(9)){
-      turboamount = 0.2;
+    if (this.m_joystick.chassis_joystick.getRawButton(Driver.Button_Turbo)) {
+      turboamount = 1.0;
     } else {
-      turboamount = joystick.getRawAxis(3);
-      if (!this.joystick.getRawButton(5)) {
-        turboamount = turboamount * 0.5 + 0.5;
-      }
+      turboamount = 0.7;
     }
     /*
 
@@ -61,15 +59,10 @@ double turboamount;
       turboamount = 0.7;
     }
     */
-
-    //reverse
-    if (this.joystick.getRawButton(6)) {
-      this.m_sub.drive.arcadeDrive(joystick.getRawAxis(0), -joystick.getRawAxis(1));
-      turboamount = - turboamount;
-    } else {
-      this.m_sub.drive.arcadeDrive(joystick.getRawAxis(0), joystick.getRawAxis(1));
-    }
     this.m_sub.drive.setMaxOutput(turboamount);
+    this.m_sub.drive.arcadeDrive(
+      this.m_joystick.chassis_joystick.getRawAxis(Driver.Axis_X), 
+      this.m_joystick.chassis_joystick.getRawAxis(Driver.Axis_Y));
     //Ball throw key (throw constantly)
     /*
     if (joystick.getRawButtonPressed(1)) {
@@ -82,22 +75,23 @@ double turboamount;
       m_ball.reset_ball();
     }              
     */
-    if (this.joystick.getRawButton(2)) {
+    if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Intake)) {
       this.m_ball.set_ball_intake(ball_intake_state.BALL_INTAKE);
-    } else if (this.joystick.getRawButton(1)) {
+    } else if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Outtake)) {
       this.m_ball.set_ball_intake(ball_intake_state.BALL_OUTTAKE);
     } else {
       this.m_ball.set_ball_intake(ball_intake_state.BALL_STOP);
     }
-    if (this.joystick.getRawButtonPressed(3)) {
+
+    if (this.m_joystick.control_joystick.getRawButtonPressed(Controller.Button_Raise_Arm)) {
       this.m_cont.lift_arm();
     }
-    if (this.joystick.getRawButtonPressed(4)) {
+    if (this.m_joystick.control_joystick.getRawButtonPressed(Controller.Button_Lower_Arm)) {
       this.m_cont.release_arm();
     }
-    if (this.joystick.getRawButton(5)) {
+    if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Lift)) {
       this.m_elev.set_elevator_state(elevator_states.ELEVATOR_ESCALATE);
-    } else if (this.joystick.getRawButton(6)) {
+    } else if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Pull)) {
       this.m_elev.set_elevator_state(elevator_states.ELEVATOR_DE_ESCALATE);
     } else {
       this.m_elev.set_elevator_state(elevator_states.ELEVATOR_STOPPED);
@@ -114,9 +108,6 @@ double turboamount;
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  }
-  public void balanceIt(){
-
   }
   // Returns true when the command should end. test commit
   @Override

@@ -9,18 +9,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BallContainerManagement;
-import frc.robot.subsystems.BallManagement;
-import frc.robot.subsystems.BallManagement.ball_intake_state;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Intake.ball_intake_state;
 
 public class DoCompleteBallOuttake extends CommandBase {
   private double time;
   /**
    * Creates a new DoCompleteBallOuttake.
    */
-  private BallManagement m_b;
-  private BallContainerManagement m_c;
-  public DoCompleteBallOuttake(BallManagement m_ballman, BallContainerManagement m_ballcon) {
+  private Intake m_b;
+  private Arm m_c;
+  public DoCompleteBallOuttake(Intake m_ballman, Arm m_ballcon) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_b = m_ballman;
     this.m_c = m_ballcon;
@@ -43,7 +43,6 @@ public class DoCompleteBallOuttake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.m_b.reset_ball();
     this.m_b.set_ball_intake(ball_intake_state.BALL_STOP);
     this.m_c.release_arm();
   }

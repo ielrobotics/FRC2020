@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
   /**
@@ -21,9 +22,9 @@ public class Elevator extends SubsystemBase {
   private final VictorSPX hook_motor;
   private final SpeedControllerGroup pull_motors;
   public Elevator() {
-    this.hook_motor = new WPI_VictorSPX(3);
+    this.hook_motor = new WPI_VictorSPX(Constants.Ports.PORT_Hook_Motor);
     elev_state = elevator_states.ELEVATOR_STOPPED;
-    pull_motors = new SpeedControllerGroup(new WPI_VictorSPX(3), new WPI_VictorSPX(4));
+    pull_motors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorOne), new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorTwo));
   }
 
   @Override

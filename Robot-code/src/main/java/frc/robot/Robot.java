@@ -6,14 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoMode;
 import frc.robot.commands.JoystickMotion;
-import frc.robot.subsystems.BallContainerManagement;
-import frc.robot.subsystems.BallManagement;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
@@ -30,10 +29,9 @@ public class Robot extends TimedRobot {
   private JoystickInterface m_joystick;
   private Chassis m_chassis;
   private RaspberryPiCommunication m_comms;
-  private BallContainerManagement m_cont;
-  private BallManagement m_ball;
+  private Arm m_cont;
+  private Intake m_ball;
   private Elevator m_elev;
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -45,12 +43,11 @@ public class Robot extends TimedRobot {
     this.m_joystick = new JoystickInterface();
     //FrontLeft = 1 FrontRight = 2 BackLeft = 3 BackRight = 4
     //1, 2 are talons
-    this.m_chassis = new Chassis(2,7,6,8);
+    this.m_chassis = new Chassis();
     this.m_comms = new RaspberryPiCommunication();
-    this.m_cont = new BallContainerManagement();
-    this.m_ball = new BallManagement();
+    this.m_cont = new Arm();
+    this.m_ball = new Intake();
     this.m_elev = new Elevator();
-    
   }
 
 

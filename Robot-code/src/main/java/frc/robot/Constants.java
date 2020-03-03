@@ -16,16 +16,50 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    //should suffice
-    //if accuracy problems occur, consider adding more digits
-    public static final double PI = Math.PI;
     //TODO: Put FRC Characterization values here
-    public static final double kRamseteB = 0;
-    public static final double kRamseteZeta = 0;
-    public static final double ksVolts = 0;
-    public static final double kvVoltSecondsPerMeter = 0;
-    public static final double kaVoltSecondsSquaredPerMeter = 0;
-    public static final double ktrackWidthMeters = 0;
-    //TODO: Test if accurate
-    public static final double encoderToMeters = 0.1524;
+    public final class RobotProperties {
+        public static final double K_RamseteB = 0;
+        public static final double K_RamseteZeta = 0;
+        public static final double K_sVolts = 0;
+        public static final double K_vVoltSecondsPerMeter = 0;
+        public static final double K_aVoltSecondsSquaredPerMeter = 0;
+        public static final double K_trackWidthMeters = 0;
+        //TODO: Test if accurate
+        public static final double K_encoderToMeters = 0.1524;
+    }
+    //PORTS
+    public final class Ports {
+        //Joystick ports
+        public static final int PORT_Joystick_Control = 1;
+        public static final int PORT_Joystick_Chassis = 0;
+        //CAN Talon SRX
+        public static final int PORT_Chassis_FrontLeft = 2;
+        public static final int PORT_Chassis_FrontRight = 7;
+        //CAN Victor SPX
+        public static final int PORT_Hook_Motor = 5;
+        public static final int PORT_Chassis_BackLeft = 6;
+        public static final int PORT_Chassis_BackRight = 8;
+        public static final int PORT_Elevator_LiftMotorOne = 3;
+        public static final int PORT_Elevator_LiftMotorTwo = 4;
+        //Analog ports
+        public static final int PORT_Arm_Potentiometer = 0;
+        //PWM Victor SP
+        public static final int PORT_Arm_Motor = 1;
+        public static final int PORT_Intake_Motor = 9;
+    }
+    public final class OIConstants {
+        public final class Driver {
+            public static final int Axis_X = 0;
+            public static final int Axis_Y = 1;
+            public static final int Button_Turbo = 0;
+        }
+        public final class Controller {
+            public static final int Button_Intake = 2;
+            public static final int Button_Outtake = 1;
+            public static final int Button_Lift = 5;
+            public static final int Button_Pull = 6;
+            public static final int Button_Raise_Arm = 3;
+            public static final int Button_Lower_Arm = 4;
+        }
+    }
 }

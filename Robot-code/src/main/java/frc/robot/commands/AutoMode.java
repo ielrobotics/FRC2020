@@ -8,8 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.BallContainerManagement;
-import frc.robot.subsystems.BallManagement;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.RaspberryPiCommunication;
 
@@ -26,7 +26,7 @@ public class AutoMode extends SequentialCommandGroup {
    * @param m_rasp Raspberry Pi subsystem
    * @param x The distance between the robot's initial position on the alliance line and the edge of the wall closest to the target zone
    */
-  public AutoMode(BallContainerManagement m_cont, BallManagement m_ball, Chassis m_chassis, RaspberryPiCommunication m_rasp, double x) {
+  public AutoMode(Arm m_cont, Intake m_ball, Chassis m_chassis, RaspberryPiCommunication m_rasp, double x) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(

@@ -9,14 +9,17 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Ports;
 
 public class JoystickInterface extends SubsystemBase {
   /**
    * Creates a new JoystickInterface.
    */
-  public final Joystick joystick;
+  public final Joystick control_joystick;
+  public final Joystick chassis_joystick;
   public JoystickInterface() {
-    this.joystick = new Joystick(1);
+    this.control_joystick = new Joystick(Ports.PORT_Joystick_Control);
+    this.chassis_joystick = new Joystick(Ports.PORT_Joystick_Chassis);
   }
 
   @Override
