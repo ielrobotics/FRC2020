@@ -15,6 +15,9 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+
+
+
 public final class Constants {
     //TODO: Put FRC Characterization values here
     public final class RobotProperties {
@@ -54,6 +57,8 @@ public final class Constants {
         public static final int PORT_Arm_Motor = 9;
     }
     public final class OIConstants {
+        //This is here to make vscode not warn us that these values are unused.
+        @SuppressWarnings("unused")
         /**
          * Joystick Mappings
          */
