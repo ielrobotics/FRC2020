@@ -54,20 +54,47 @@ public final class Constants {
         public static final int PORT_Arm_Motor = 9;
     }
     public final class OIConstants {
+        /**
+         * Joystick Mappings
+         */
+        private final class JM {
+            public final class Axes {
+                public static final int Left_X = 0;
+                public static final int Left_Y = 1;
+                //L2
+                public static final int Left_Trigger = 2;
+                //R2
+                public static final int Right_Trigger = 3;
+                public static final int Right_X = 4;
+                public static final int Right_Y = 5;
+            }
+            public final class Buttons {
+                public static final int A = 1;
+                public static final int B = 2;
+                public static final int X = 3;
+                public static final int Y = 4;
+                public static final int L1 = 5;
+                public static final int R1 = 6;
+                public static final int Back = 7;
+                public static final int Start = 8;
+                public static final int L3 = 9;
+                public static final int R3 = 10;
+            }
+        }
         public final class Driver {
-            public static final int Axis_X = 0;
-            public static final int Axis_Y = 1;
-            public static final int Button_Turbo = 1;
+            public static final int Axis_X = JM.Axes.Left_X;
+            public static final int Axis_Y = JM.Axes.Left_Y;
+            public static final int Button_Turbo = JM.Buttons.A;
         }
         public final class Controller {
-            public static final int Button_Intake = 2;
-            public static final int Button_Outtake = 1;
-            public static final int Button_Lift = 5;
-            public static final int Button_Pull = 6;
-            public static final int Button_Lift_Green = 7;
-            public static final int Button_Pull_Green = 8;
-            public static final int Button_Raise_Arm = 3;
-            public static final int Button_Lower_Arm = 4;
+            public static final int Button_Intake = JM.Buttons.B;
+            public static final int Button_Outtake = JM.Buttons.A;
+            public static final int Button_Lift = JM.Buttons.L1;
+            public static final int Button_Pull = JM.Buttons.R1;
+            public static final int Button_Lift_Green = JM.Buttons.Back;
+            public static final int Button_Pull_Green = JM.Buttons.Start;
+            public static final int Button_Raise_Arm = JM.Buttons.X;
+            public static final int Button_Lower_Arm = JM.Buttons.Y;
         }
     }
 }
