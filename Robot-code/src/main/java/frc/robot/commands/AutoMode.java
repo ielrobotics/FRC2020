@@ -28,7 +28,7 @@ public class AutoMode extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new AutoModeBase(m_cont, m_ball, m_chassis, x),
-      new FollowPath(m_chassis, "Mid_Blue")
+      new FollowPath(m_chassis, "Mid_Blue", m_ball)
     );
     //TODO: Finish adding Auto Mode logic here
   }
