@@ -78,6 +78,10 @@ public class Chassis extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    System.out.print("Encoder outputs (L, R): ");
+    System.out.print(get_left_sensor());
+    System.out.print(" , ");
+    System.out.println(get_right_sensor());
     get_right_pid();
     get_left_pid();
     this.drive.feed();
