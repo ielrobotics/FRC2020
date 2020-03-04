@@ -26,6 +26,9 @@ public final class Constants {
         public static final double K_trackWidthMeters = 0;
         //TODO: Test if accurate
         public static final double K_encoderToMeters = 0.1524;
+        public static final double K_armFeedForward = 0.15;
+        public static final double K_armPotentiometerHighest = 18;
+        public static final double K_armPotentiometerLowest = 1;
     }
     //PORTS
     public final class Ports {
@@ -35,10 +38,11 @@ public final class Constants {
         //CAN Talon SRX
         public static final int PORT_Chassis_FrontLeft = 2;
         public static final int PORT_Chassis_FrontRight = 7;
-        //CAN Victor SPX
-        public static final int PORT_Hook_Motor = 5;
         public static final int PORT_Chassis_BackLeft = 6;
         public static final int PORT_Chassis_BackRight = 8;
+        //CAN Victor SPX
+        public static final int PORT_Hook_Motor = 5;
+
         public static final int PORT_Elevator_LiftMotorOne = 3;
         public static final int PORT_Elevator_LiftMotorTwo = 4;
         public static final int PORT_Intake_Motor = 1;
@@ -51,13 +55,15 @@ public final class Constants {
         public final class Driver {
             public static final int Axis_X = 0;
             public static final int Axis_Y = 1;
-            public static final int Button_Turbo = 0;
+            public static final int Button_Turbo = 1;
         }
         public final class Controller {
             public static final int Button_Intake = 2;
             public static final int Button_Outtake = 1;
             public static final int Button_Lift = 5;
             public static final int Button_Pull = 6;
+            public static final int Button_Lift_Green = 7;
+            public static final int Button_Pull_Green = 8;
             public static final int Button_Raise_Arm = 3;
             public static final int Button_Lower_Arm = 4;
         }

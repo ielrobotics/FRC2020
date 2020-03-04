@@ -96,6 +96,13 @@ double turboamount;
     } else {
       this.m_elev.set_elevator_state(elevator_states.ELEVATOR_STOPPED);
     }
+    if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Lift_Green)) {
+      this.m_elev.set_elevator_green_state(elevator_states.ELEVATOR_ESCALATE);
+    } else if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Pull_Green)) {
+      this.m_elev.set_elevator_green_state(elevator_states.ELEVATOR_DE_ESCALATE);
+    } else {
+      this.m_elev.set_elevator_green_state(elevator_states.ELEVATOR_STOPPED);
+    }
     /*
     if (!joystick.getRawButton(1) && joystick.getRawButton(2)) {
       m_ball.set_ball_intake(1);

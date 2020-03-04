@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.RobotProperties;
 import frc.robot.Constants.Ports;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -35,8 +34,8 @@ public class Chassis extends SubsystemBase {
   private final SpeedControllerGroup left_controller_group;
   private final SpeedControllerGroup right_controller_group;
   private final DifferentialDriveOdometry odometry;
-  private final WPI_VictorSPX back_left_victor;
-  private final WPI_VictorSPX back_right_victor;
+  private final WPI_TalonSRX back_left_talon;
+  private final WPI_TalonSRX back_right_talon;
   private final AHRS ah;
   /**
    * Creates a Chassis object.
@@ -49,8 +48,8 @@ public class Chassis extends SubsystemBase {
     //Initializes Talon SRXes
     this.front_right_talon = new WPI_TalonSRX(Ports.PORT_Chassis_FrontRight);
     this.front_left_talon = new WPI_TalonSRX(Ports.PORT_Chassis_FrontLeft);
-    this.back_left_victor = new WPI_VictorSPX(Ports.PORT_Chassis_BackLeft);
-    this.back_right_victor = new WPI_VictorSPX(Ports.PORT_Chassis_BackRight);
+    this.back_left_talon = new WPI_TalonSRX(Ports.PORT_Chassis_BackLeft);
+    this.back_right_talon = new WPI_TalonSRX(Ports.PORT_Chassis_BackRight);
     this.ah = new AHRS();
     ah.zeroYaw();
 
@@ -61,8 +60,8 @@ public class Chassis extends SubsystemBase {
     this.front_right_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     this.front_left_talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 
-    right_controller_group = new SpeedControllerGroup(this.front_right_talon, this.back_right_victor);
-    left_controller_group = new SpeedControllerGroup(this.front_left_talon, this.back_left_victor);
+    right_controller_group = new SpeedControllerGroup(this.front_right_talon, this.back_right_talon);
+    left_controller_group = new SpeedControllerGroup(this.front_left_talon, this.back_left_talon);
 
     this.drive = new DifferentialDrive(right_controller_group,left_controller_group);
     this.drive.setMaxOutput(0.7);

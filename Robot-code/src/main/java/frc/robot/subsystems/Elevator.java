@@ -24,25 +24,38 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
     this.hook_motor = new WPI_VictorSPX(Constants.Ports.PORT_Hook_Motor);
     elev_state = elevator_states.ELEVATOR_STOPPED;
+    elev_green_state = elevator_states.ELEVATOR_STOPPED;
     pull_motors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorOne), new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorTwo));
   }
 
   @Override
   public void periodic() {
-    //TODO: Check if motor outputs need to be backwards
     switch (this.elev_state) {
       case ELEVATOR_STOPPED:
         this.hook_motor.set(ControlMode.PercentOutput, 0);
+        //this.pull_motors.set(0);
+      break;
+      case ELEVATOR_DE_ESCALATE:
+        this.hook_motor.set(ControlMode.PercentOutput, 1);
+        //this.pull_motors.set(1);
+      break;
+      case ELEVATOR_ESCALATE:
+        this.hook_motor.set(ControlMode.PercentOutput, -1);
+        //this.pull_motors.set(0);
+      break;
+    }
+    switch (this.elev_green_state) {
+      case ELEVATOR_STOPPED:
+        //this.hook_motor.set(ControlMode.PercentOutput, 0);
         this.pull_motors.set(0);
       break;
       case ELEVATOR_DE_ESCALATE:
-        this.hook_motor.set(ControlMode.PercentOutput, 0);
-        //TODO: check if this is backwards
+        //this.hook_motor.set(ControlMode.PercentOutput, 1);
         this.pull_motors.set(1);
       break;
       case ELEVATOR_ESCALATE:
-        this.hook_motor.set(ControlMode.PercentOutput, 1);
-        this.pull_motors.set(0);
+        //this.hook_motor.set(ControlMode.PercentOutput, -1);
+        this.pull_motors.set(-1);
       break;
     }
     // This method will be called once per scheduler run
@@ -53,7 +66,11 @@ public class Elevator extends SubsystemBase {
     ELEVATOR_DE_ESCALATE
   }
   private elevator_states elev_state;
+  private elevator_states elev_green_state;
   public void set_elevator_state(elevator_states state) {
     this.elev_state = state;
+  }
+  public void set_elevator_green_state(elevator_states state) {
+    this.elev_green_state = state;
   }
 }
