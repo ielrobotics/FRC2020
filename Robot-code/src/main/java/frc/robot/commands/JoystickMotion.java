@@ -15,6 +15,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.JoystickInterface;
+import frc.robot.subsystems.Arm.arm_state;
 import frc.robot.subsystems.Intake.ball_intake_state;
 import frc.robot.subsystems.Elevator.elevator_states;
 public class JoystickMotion extends CommandBase {
@@ -43,8 +44,6 @@ double turboamount;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.print("Analog output: ");
-    System.out.println(m_cont.getMeasurement());
     //joystick turbo key
     //Turbo key
     if (this.m_joystick.chassis_joystick.getRawButton(Driver.Button_Turbo)) {
@@ -84,10 +83,11 @@ double turboamount;
     }
 
     if (this.m_joystick.control_joystick.getRawButtonPressed(Controller.Button_Raise_Arm)) {
-      this.m_cont.lift_arm();
-    }
-    if (this.m_joystick.control_joystick.getRawButtonPressed(Controller.Button_Lower_Arm)) {
-      this.m_cont.release_arm();
+      this.m_cont.set_state(arm_state.ARM_ELEVATE);
+    } else if (this.m_joystick.control_joystick.getRawButtonPressed(Controller.Button_Lower_Arm)) {
+      this.m_cont.set_state(arm_state.ARM_DE_ELEVATE);
+    } else {
+      this.m_cont.set_state(arm_state.ARM_STOP);
     }
     if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Lift)) {
       this.m_elev.set_elevator_state(elevator_states.ELEVATOR_ESCALATE);
@@ -115,6 +115,10 @@ double turboamount;
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_ball.set_ball_intake(ball_intake_state.BALL_STOP);
+    m_cont.set_state(arm_state.ARM_STOP);
+    m_elev.set_elevator_state(elevator_states.ELEVATOR_STOPPED);
+    m_elev.set_elevator_green_state(elevator_states.ELEVATOR_STOPPED);
   }
   // Returns true when the command should end. test commit
   @Override

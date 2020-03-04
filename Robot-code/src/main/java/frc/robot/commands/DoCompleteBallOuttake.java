@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Arm.arm_state;
 import frc.robot.subsystems.Intake.ball_intake_state;
 
 public class DoCompleteBallOuttake extends CommandBase {
@@ -31,7 +32,7 @@ public class DoCompleteBallOuttake extends CommandBase {
   @Override
   public void initialize() {
     this.time = Timer.getFPGATimestamp();
-    this.m_c.lift_arm();
+    this.m_c.set_state(arm_state.ARM_ELEVATE);
     this.m_b.set_ball_intake(ball_intake_state.BALL_OUTTAKE);
   }
 
@@ -44,7 +45,7 @@ public class DoCompleteBallOuttake extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     this.m_b.set_ball_intake(ball_intake_state.BALL_STOP);
-    this.m_c.release_arm();
+    this.m_c.set_state(arm_state.ARM_DE_ELEVATE);
   }
 
   // Returns true when the command should end.

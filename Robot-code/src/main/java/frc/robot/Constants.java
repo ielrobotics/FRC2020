@@ -29,6 +29,8 @@ public final class Constants {
         public static final double K_armFeedForward = 0.15;
         public static final double K_armPotentiometerHighest = 18;
         public static final double K_armPotentiometerLowest = 1;
+        public static final double K_armRaiseSignal = 1.0;
+        public static final double K_armLowerSignal = -1.0;
     }
     //PORTS
     public final class Ports {

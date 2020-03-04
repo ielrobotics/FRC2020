@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Ports;
+import frc.robot.Constants.RobotProperties;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
 public class Arm extends SubsystemBase {
@@ -34,21 +35,25 @@ public class Arm extends SubsystemBase {
     //TODO: Finish arm code
     switch (arm) {
       case ARM_DE_ELEVATE:
-        if (arm_analog.pidGet())
+        if (arm_analog.pidGet() < RobotProperties.K_armPotentiometerHighest) {
+          arm_motor.set(RobotProperties.K_armLowerSignal);
+        } else {
+          arm_motor.set(RobotProperties.K_armFeedForward);
+        }
       break;
       case ARM_STOP:
-
+        arm_motor.set(RobotProperties.K_armFeedForward);
       break;
       case ARM_ELEVATE:
-
+      if (arm_analog.pidGet() < RobotProperties.K_armPotentiometerHighest) {
+        arm_motor.set(RobotProperties.K_armRaiseSignal);
+      } else {
+        arm_motor.set(RobotProperties.K_armFeedForward);
+      }
       break;
     }
   }
-  public void lift_arm() {
-    //TODO: Get setpoints for the up and down states of the arm
-    this.setSetpoint(0);
-  }
-  public void release_arm() {
-    this.setSetpoint(18);
+  public void set_state(arm_state state) {
+    this.arm = state;
   }
 }

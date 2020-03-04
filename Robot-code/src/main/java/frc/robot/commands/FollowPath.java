@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants.RobotProperties;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Intake.ball_intake_state;
 
 public class FollowPath extends CommandBase {
   /**
@@ -32,8 +34,10 @@ public class FollowPath extends CommandBase {
   private final Chassis m_chassis;
   private RamseteCommand com;
   private final String path_name;
-  public FollowPath(Chassis c, String name) {
-    addRequirements(c);
+  private final Intake m_intake;
+  public FollowPath(Chassis c, String name, Intake i) {
+    addRequirements(c, i);
+    m_intake = i;
     path_name = name;
     m_chassis = c;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -62,6 +66,7 @@ public class FollowPath extends CommandBase {
     }
     //TODO: Trajectory may be wrong, test trajectory
     com = new RamseteCommand(traj, m_chassis::getPose, new RamseteController(RobotProperties.K_RamseteB, RobotProperties.K_RamseteZeta), new SimpleMotorFeedforward(RobotProperties.K_sVolts, RobotProperties.K_vVoltSecondsPerMeter, RobotProperties.K_aVoltSecondsSquaredPerMeter), m_chassis.kinematics, m_chassis::getSpeeds, m_chassis.left_pid, m_chassis.right_pid, m_chassis::tankDriveVolts, m_chassis);
+    m_intake.set_ball_intake(ball_intake_state.BALL_INTAKE);
     com.initialize();
   }
 
@@ -76,6 +81,7 @@ public class FollowPath extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     com.end(interrupted);
+    m_intake.set_ball_intake(ball_intake_state.BALL_STOP);
     m_chassis.drive.arcadeDrive(0, 0);
   }
 
