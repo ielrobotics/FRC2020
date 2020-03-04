@@ -19,7 +19,6 @@ public class Arm extends SubsystemBase {
   private final VictorSP arm_motor;
   private final AnalogPotentiometer arm_analog;
   public Arm() {
-    //TODO: Measure P, I and D
       this.arm_analog = new AnalogPotentiometer(Ports.PORT_Arm_Potentiometer, 90, 0);
       this.arm_motor = new VictorSP(Ports.PORT_Arm_Motor);
       arm = arm_state.ARM_STOP;
@@ -32,11 +31,10 @@ public class Arm extends SubsystemBase {
   private arm_state arm;
   @Override
   public void periodic() {
-    //TODO: Finish arm code
     switch (arm) {
       case ARM_DE_ELEVATE:
         if (arm_analog.pidGet() < RobotProperties.K_armPotentiometerHighest) {
-          arm_motor.set(RobotProperties.K_armLowerSignal);
+          arm_motor.set(RobotProperties.K_armLowerSignal * arm_analog.pidGet() / RobotProperties.K_armPotentiometerHighest + RobotProperties.K_armFeedForward);
         } else {
           arm_motor.set(RobotProperties.K_armFeedForward);
         }
@@ -46,7 +44,7 @@ public class Arm extends SubsystemBase {
       break;
       case ARM_ELEVATE:
       if (arm_analog.pidGet() < RobotProperties.K_armPotentiometerHighest) {
-        arm_motor.set(RobotProperties.K_armRaiseSignal);
+        arm_motor.set(RobotProperties.K_armRaiseSignal  * (1 - arm_analog.pidGet() / RobotProperties.K_armPotentiometerHighest) + RobotProperties.K_armFeedForward);
       } else {
         arm_motor.set(RobotProperties.K_armFeedForward);
       }
