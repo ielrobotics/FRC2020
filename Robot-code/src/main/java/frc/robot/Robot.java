@@ -10,8 +10,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.AutoMode;
 import frc.robot.commands.JoystickMotion;
+import frc.robot.commands.MinimalAutoMode;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Chassis;
@@ -88,7 +88,9 @@ public class Robot extends TimedRobot {
    // m_autonomousCommand = new ImageRecognitionMotion(m_chassis, m_comms, m_cont, m_ball);
    //TODO: update x according to robot position on field
    //x is the distance betweed the robot and the edge of the wall closest to the target zone
-   this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, 164.4);
+   //this.m_autonomousCommand = new AutoMode(this.m_cont, this.m_ball, this.m_chassis, 164.4);
+   //TODO: replace minimal auto sometime
+   this.m_autonomousCommand = new MinimalAutoMode(m_chassis, m_cont, m_ball);
    this.m_autonomousCommand.schedule();
     //only needed for switcheroo
     if (this.m_teleopCommand != null) {

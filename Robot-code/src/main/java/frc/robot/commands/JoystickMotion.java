@@ -60,8 +60,8 @@ double turboamount;
     */
     this.m_sub.drive.setMaxOutput(turboamount);
     this.m_sub.drive.arcadeDrive(
-      this.m_joystick.chassis_joystick.getRawAxis(Driver.Axis_X), 
-      this.m_joystick.chassis_joystick.getRawAxis(Driver.Axis_Y));
+      -this.m_joystick.chassis_joystick.getRawAxis(Driver.Axis_X), 
+      -this.m_joystick.chassis_joystick.getRawAxis(Driver.Axis_Y));
     //Ball throw key (throw constantly)
     /*
     if (joystick.getRawButtonPressed(1)) {
