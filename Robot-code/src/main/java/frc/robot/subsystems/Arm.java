@@ -43,15 +43,19 @@ public class Arm extends SubsystemBase {
         arm_motor.set(RobotProperties.K_armFeedForward);
       break;
       case ARM_ELEVATE:
+      System.out.println(arm_analog.pidGet());
       if (arm_analog.pidGet() < RobotProperties.K_armPotentiometerHighest) {
+        System.out.println("arm go up");
         arm_motor.set(RobotProperties.K_armRaiseSignal  * (1 - arm_analog.pidGet() / RobotProperties.K_armPotentiometerHighest) + RobotProperties.K_armFeedForward);
       } else {
+        System.out.println("arm go no");
         arm_motor.set(RobotProperties.K_armFeedForward);
       }
       break;
     }
   }
   public void set_state(arm_state state) {
+    System.out.println(state);
     this.arm = state;
   }
 }

@@ -87,7 +87,7 @@ double turboamount;
     } else if (this.m_joystick.control_joystick.getRawButtonPressed(Controller.Button_Lower_Arm)) {
       this.m_cont.set_state(arm_state.ARM_DE_ELEVATE);
     } else {
-      this.m_cont.set_state(arm_state.ARM_STOP);
+      //this.m_cont.set_state(arm_state.ARM_STOP);
     }
     if (this.m_joystick.control_joystick.getRawButton(Controller.Button_Lift)) {
       this.m_elev.set_elevator_state(elevator_states.ELEVATOR_ESCALATE);
