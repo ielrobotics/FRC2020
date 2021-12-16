@@ -30,13 +30,17 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     switch (arm) {
       case ARM_DE_ELEVATE:
-        arm_motor.set(RobotProperties.K_armLowerSignal);
+      System.out.println("ARM_DE_ELEVATE");
+        arm_motor.set(1);
       break;
       case ARM_STOP:
-        arm_motor.set(RobotProperties.K_armFeedForward);
+      System.out.println("ARM_STOP");
+        arm_motor.set(0);
+        
       break;
       case ARM_ELEVATE:
-        arm_motor.set(RobotProperties.K_armRaiseSignal);
+      System.out.println("ARM_ELEVATE");
+        arm_motor.set(-1);
       break;
     }
   }

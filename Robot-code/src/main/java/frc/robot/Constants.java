@@ -54,7 +54,7 @@ public final class Constants {
         //Analog ports
         public static final int PORT_Arm_Potentiometer = 0;
         //PWM Victor SP
-        public static final int PORT_Arm_Motor = 9;
+        public static final int PORT_Arm_Motor = 0;
     }
     public final class OIConstants {
         //This is here to make vscode not warn us that these values are unused.
