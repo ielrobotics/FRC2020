@@ -10,16 +10,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Ports;
 import frc.robot.Constants.RobotProperties;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.VictorSP;
 public class Arm extends SubsystemBase {
   /**
    * Creates a new BallContainerManagement.
    */
   private final VictorSP arm_motor;
-  private final AnalogPotentiometer arm_analog;
   public Arm() {
-      this.arm_analog = new AnalogPotentiometer(Ports.PORT_Arm_Potentiometer, 90, 0);
       this.arm_motor = new VictorSP(Ports.PORT_Arm_Motor);
       arm = arm_state.ARM_STOP;
   }
@@ -33,24 +30,13 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     switch (arm) {
       case ARM_DE_ELEVATE:
-        if (arm_analog.pidGet() < RobotProperties.K_armPotentiometerHighest) {
-          arm_motor.set(RobotProperties.K_armLowerSignal * arm_analog.pidGet() / RobotProperties.K_armPotentiometerHighest + RobotProperties.K_armFeedForward);
-        } else {
-          arm_motor.set(RobotProperties.K_armFeedForward);
-        }
+        arm_motor.set(RobotProperties.K_armLowerSignal);
       break;
       case ARM_STOP:
         arm_motor.set(RobotProperties.K_armFeedForward);
       break;
       case ARM_ELEVATE:
-      System.out.println(arm_analog.pidGet());
-      if (arm_analog.pidGet() < RobotProperties.K_armPotentiometerHighest) {
-        System.out.println("arm go up");
-        arm_motor.set(RobotProperties.K_armRaiseSignal  * (1 - arm_analog.pidGet() / RobotProperties.K_armPotentiometerHighest) + RobotProperties.K_armFeedForward);
-      } else {
-        System.out.println("arm go no");
-        arm_motor.set(RobotProperties.K_armFeedForward);
-      }
+        arm_motor.set(RobotProperties.K_armRaiseSignal);
       break;
     }
   }
