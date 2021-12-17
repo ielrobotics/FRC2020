@@ -25,7 +25,9 @@ public class Elevator extends SubsystemBase {
     this.hook_motor = new WPI_VictorSPX(Constants.Ports.PORT_Hook_Motor);
     elev_state = elevator_states.ELEVATOR_STOPPED;
     elev_green_state = elevator_states.ELEVATOR_STOPPED;
-    pull_motors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorOne), new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorTwo));
+    WPI_VictorSPX lift_two = new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorTwo);
+    lift_two.setInverted(true);
+    pull_motors = new SpeedControllerGroup(new WPI_VictorSPX(Constants.Ports.PORT_Elevator_LiftMotorOne), lift_two);
   }
 
   @Override
