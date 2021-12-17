@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Ports;
 
 public class Intake extends SubsystemBase {
   /**
@@ -17,7 +18,7 @@ public class Intake extends SubsystemBase {
    */
   private final WPI_VictorSPX intake_motor;
   public Intake() {
-    this.intake_motor = new WPI_VictorSPX(1);
+    this.intake_motor = new WPI_VictorSPX(Ports.PORT_Intake_Motor);
   }
   public enum ball_intake_state {
     BALL_INTAKE,
